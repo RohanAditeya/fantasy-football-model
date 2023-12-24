@@ -7,7 +7,6 @@ public class PlayerBasicInformation {
     private String secondName;
     private Integer squadNumber;
     private Character status;
-    private Integer teamId;
     private Integer teamCode;
     private String webName;
 
@@ -57,14 +56,6 @@ public class PlayerBasicInformation {
 
     public void setStatus(Character status) {
         this.status = status;
-    }
-
-    public Integer getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(Integer teamId) {
-        this.teamId = teamId;
     }
 
     public Integer getTeamCode() {
