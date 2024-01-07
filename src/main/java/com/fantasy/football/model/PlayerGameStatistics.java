@@ -8,7 +8,7 @@ public class PlayerGameStatistics {
 
     private PlayerGameStatistics () {}
 
-    public PlayerGameStatistics(LeagueTeam playerCode, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
+    public PlayerGameStatistics(PlayerBasicInformation playerCode, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
         this.playerCode = playerCode;
         this.minutes = minutes;
         this.goalsScored = goalsScored;
@@ -34,7 +34,7 @@ public class PlayerGameStatistics {
     @Id
     @OneToOne(optional = false)
     @JoinColumn(name = "PLYR_CODE", referencedColumnName = "CODE")
-    private LeagueTeam playerCode;
+    private PlayerBasicInformation playerCode;
     @Column(name = "MINS")
     private Integer minutes;
     @Column(name = "GOALS_SCRD")
@@ -69,11 +69,11 @@ public class PlayerGameStatistics {
     @Column(name = "GOALS_CNCDED_90")
     private Float goalsConcededPer90;
 
-    public LeagueTeam getPlayerCode() {
+    public PlayerBasicInformation getPlayerCode() {
         return playerCode;
     }
 
-    public void setPlayerCode(LeagueTeam playerCode) {
+    public void setPlayerCode(PlayerBasicInformation playerCode) {
         this.playerCode = playerCode;
     }
 
@@ -230,7 +230,7 @@ public class PlayerGameStatistics {
     }
 
     public static class Builder {
-        private LeagueTeam playerCode;
+        private PlayerBasicInformation playerCode;
         private Integer minutes;
         private Integer goalsScored;
         private Integer assists;
@@ -251,7 +251,7 @@ public class PlayerGameStatistics {
         private Float savesPer90;
         private Float goalsConcededPer90;
 
-        public Builder setPlayerCode(LeagueTeam playerCode) {
+        public Builder setPlayerCode(PlayerBasicInformation playerCode) {
             this.playerCode = playerCode;
             return this;
         }

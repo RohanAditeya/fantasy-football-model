@@ -10,7 +10,7 @@ public class PlayerMiscellaneousInformation {
 
     private PlayerMiscellaneousInformation () {}
 
-    public PlayerMiscellaneousInformation(Integer playerCode, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
+    public PlayerMiscellaneousInformation(PlayerBasicInformation playerCode, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
         this.playerCode = playerCode;
         this.news = news;
         this.newsAdded = newsAdded;
@@ -42,7 +42,7 @@ public class PlayerMiscellaneousInformation {
     @Id
     @OneToOne(optional = false)
     @JoinColumn(name = "PLYR_CODE ", referencedColumnName = "CODE")
-    private Integer playerCode;
+    private PlayerBasicInformation playerCode;
     private String news;
     private OffsetDateTime newsAdded;
     private Float ictIndex;
@@ -81,11 +81,11 @@ public class PlayerMiscellaneousInformation {
     @Column(name = "SEL_RANK_TYPE")
     private Integer selectedRankType;
 
-    public Integer getPlayerCode() {
+    public PlayerBasicInformation getPlayerCode() {
         return playerCode;
     }
 
-    public void setPlayerCode(Integer playerCode) {
+    public void setPlayerCode(PlayerBasicInformation playerCode) {
         this.playerCode = playerCode;
     }
 
@@ -290,7 +290,7 @@ public class PlayerMiscellaneousInformation {
     }
 
     public static class Builder {
-        private Integer playerCode;
+        private PlayerBasicInformation playerCode;
         private String news;
         private OffsetDateTime newsAdded;
         private Float ictIndex;
@@ -317,7 +317,7 @@ public class PlayerMiscellaneousInformation {
         private Integer selectedRank;
         private Integer selectedRankType;
 
-        public Builder setPlayerCode(Integer playerCode) {
+        public Builder setPlayerCode(PlayerBasicInformation playerCode) {
             this.playerCode = playerCode;
             return this;
         }
