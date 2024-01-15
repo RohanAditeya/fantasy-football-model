@@ -10,7 +10,7 @@ import org.springframework.lang.NonNull;
 @Access(value = AccessType.FIELD)
 public class LeagueTeamPrimaryKey {
 
-    public LeagueTeamPrimaryKey () {}
+    private LeagueTeamPrimaryKey () {}
     public LeagueTeamPrimaryKey (int code, String name) {
         this.code = code;
         this.name = name;

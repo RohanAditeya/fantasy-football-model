@@ -1,6 +1,7 @@
 package com.fantasy.football.model;
 
 import jakarta.persistence.*;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "PLYR_BSC_INFO")
@@ -8,7 +9,7 @@ public class PlayerBasicInformation {
 
     private PlayerBasicInformation () {}
 
-    public PlayerBasicInformation(Long code, String firstName, String secondName, Integer squadNumber, Character status, LeagueTeam teamCode, String webName) {
+    private PlayerBasicInformation(Long code, String firstName, String secondName, Integer squadNumber, Character status, LeagueTeam teamCode, String webName, PlayerFantasyStatistics playerFantasyStatistics, PlayerGameStatistics playerGameStatistics, PlayerMiscellaneousInformation playerMiscellaneousInformation) {
         this.code = code;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -16,6 +17,9 @@ public class PlayerBasicInformation {
         this.status = status;
         this.teamCode = teamCode;
         this.webName = webName;
+        this.playerFantasyStatistics = playerFantasyStatistics;
+        this.playerGameStatistics = playerGameStatistics;
+        this.playerMiscellaneousInformation = playerMiscellaneousInformation;
     }
 
     @Id
@@ -28,11 +32,20 @@ public class PlayerBasicInformation {
     private Integer squadNumber;
     @Column(name = "PLYR_STS")
     private Character status;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "TEAM_CODE", referencedColumnName = "CODE")
     private LeagueTeam teamCode;
     @Column(name = "WEB_NAME")
     private String webName;
+    @Nullable
+    @OneToOne(mappedBy = "playerCode")
+    private PlayerFantasyStatistics playerFantasyStatistics;
+    @Nullable
+    @OneToOne(mappedBy = "playerCode")
+    private PlayerGameStatistics playerGameStatistics;
+    @Nullable
+    @OneToOne(mappedBy = "playerCode")
+    private PlayerMiscellaneousInformation playerMiscellaneousInformation;
 
     public Long getCode() {
         return code;
@@ -90,6 +103,30 @@ public class PlayerBasicInformation {
         this.webName = webName;
     }
 
+    public PlayerFantasyStatistics getPlayerFantasyStatistics() {
+        return playerFantasyStatistics;
+    }
+
+    public void setPlayerFantasyStatistics(PlayerFantasyStatistics playerFantasyStatistics) {
+        this.playerFantasyStatistics = playerFantasyStatistics;
+    }
+
+    public PlayerGameStatistics getPlayerGameStatistics() {
+        return playerGameStatistics;
+    }
+
+    public void setPlayerGameStatistics(PlayerGameStatistics playerGameStatistics) {
+        this.playerGameStatistics = playerGameStatistics;
+    }
+
+    public PlayerMiscellaneousInformation getPlayerMiscellaneousInformation() {
+        return playerMiscellaneousInformation;
+    }
+
+    public void setPlayerMiscellaneousInformation(PlayerMiscellaneousInformation playerMiscellaneousInformation) {
+        this.playerMiscellaneousInformation = playerMiscellaneousInformation;
+    }
+
     public static class Builder {
         private Long code;
         private String firstName;
@@ -98,6 +135,9 @@ public class PlayerBasicInformation {
         private Character status;
         private LeagueTeam teamCode;
         private String webName;
+        private PlayerFantasyStatistics playerFantasyStatistics;
+        private PlayerGameStatistics playerGameStatistics;
+        private PlayerMiscellaneousInformation playerMiscellaneousInformation;
 
         public Builder code (Long code) {
             this.code = code;
@@ -134,9 +174,24 @@ public class PlayerBasicInformation {
             return this;
         }
 
+        public Builder playerFantasyStatistics (PlayerFantasyStatistics playerFantasyStatistics) {
+            this.playerFantasyStatistics = playerFantasyStatistics;
+            return this;
+        }
+
+        public Builder playerGameStatistics (PlayerGameStatistics playerGameStatistics) {
+            this.playerGameStatistics = playerGameStatistics;
+            return this;
+        }
+
+        public Builder playerMiscellaneousInformation (PlayerMiscellaneousInformation playerMiscellaneousInformation) {
+            this.playerMiscellaneousInformation = playerMiscellaneousInformation;
+            return this;
+        }
+
         public PlayerBasicInformation build () {
             return new PlayerBasicInformation(
-                    this.code, this.firstName, this.secondName, this.squadNumber, this.status, this.teamCode, this.webName
+                    this.code, this.firstName, this.secondName, this.squadNumber, this.status, this.teamCode, this.webName, playerFantasyStatistics, playerGameStatistics, playerMiscellaneousInformation
             );
         }
     }

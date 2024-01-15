@@ -8,7 +8,7 @@ public class PlayerGameStatistics {
 
     private PlayerGameStatistics () {}
 
-    public PlayerGameStatistics(PlayerBasicInformation playerCode, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
+    private PlayerGameStatistics(PlayerBasicInformation playerCode, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
         this.playerCode = playerCode;
         this.minutes = minutes;
         this.goalsScored = goalsScored;

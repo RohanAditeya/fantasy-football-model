@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: Fantasy Football League API
+  summary: API to manage data stored in data store from the Fantasy Premier league public APIs
+  contact:
+    name: Rohan Aditeya
+    email: rohan.aditeya@gmail.com
+  version: 0.0.1
+tags:
+  - name: league-team
+    description: Handle all CRUD operations for league teams.
+  - name: league-player
+    description: Handle all CRUD operations for league player
+paths:
+  /league-team/create:
+    summary: API endpoints to manage league team records.
+    post:
+      summary: POST endpoint to create new league team record
+      operationId: create-league-team
+      tags:
+        - league-team
+      requestBody:
+        description: League Team Payload
+        required: true
+        content:
+          application/json:
+            schema:
+              type: leagueTeam
+      responses:
+        "201":
+          description: League team record is created successfully.
+  /league-player/create:
+    summary: API endpoints to manage league player records.
+    post:
+      summary: POST endpoint to create new league player record
+      operationId: create-league-player
+      tags:
+        - league-player
+      requestBody:
+        description: League player Payload
+        required: true
+        content:
+          application/json:
+            schema:
+              type: playerBasicInformation
+      responses:
+        "201":
+          description: League player record is created successfully.
+servers:
+  - url: http://localhost:8080/fantasy/football/v1

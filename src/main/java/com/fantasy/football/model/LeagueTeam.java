@@ -6,12 +6,12 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicUpdate
 @Table(name = "LEAGUE_TEAM")
+@IdClass(value = LeagueTeamPrimaryKey.class)
 public class LeagueTeam {
 
-    public LeagueTeam () {}
+    private LeagueTeam () {}
 
-    private LeagueTeam(LeagueTeamPrimaryKey teamKey, int draw, float form, int loss, int played, int points, int position, String shortName, int strength, String teamDivision, boolean unavailable, int win, int strengthOverallHome, int strengthOverallAway, int strengthAttackHome, int strengthAttackAway, int strengthDefenceHome, int strengthDefenceAway, int pulseId, int code, String name) {
-        this.teamKey = teamKey;
+    private LeagueTeam(int draw, float form, int loss, int played, int points, int position, String shortName, int strength, String teamDivision, boolean unavailable, int win, int strengthOverallHome, int strengthOverallAway, int strengthAttackHome, int strengthAttackAway, int strengthDefenceHome, int strengthDefenceAway, int pulseId, int code, String name) {
         this.draw = draw;
         this.form = form;
         this.loss = loss;
@@ -35,8 +35,9 @@ public class LeagueTeam {
     }
 
     @Id
-    @Embedded
-    private LeagueTeamPrimaryKey teamKey;
+    private int code;
+    @Id
+    private String name;
     private int draw;
     private float form;
     private int loss;
@@ -66,14 +67,6 @@ public class LeagueTeam {
     private int strengthDefenceAway;
     @Column(name = "PULSE_ID")
     private int pulseId;
-    @Transient
-    private int code;
-    @Transient
-    private String name;
-
-    public void initializePrimaryKey () {
-        this.setTeamKey(new LeagueTeamPrimaryKey(getCode(), getName()));
-    }
 
     public int getCode() {
         return code;
@@ -89,14 +82,6 @@ public class LeagueTeam {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LeagueTeamPrimaryKey getTeamKey() {
-        return teamKey;
-    }
-
-    public void setTeamKey(LeagueTeamPrimaryKey teamKey) {
-        this.teamKey = teamKey;
     }
 
     public int getDraw() {
@@ -244,7 +229,6 @@ public class LeagueTeam {
     }
 
     public static class Builder {
-        private LeagueTeamPrimaryKey teamKey;
         private int draw;
         private float form;
         private int loss;
@@ -265,11 +249,6 @@ public class LeagueTeam {
         private int pulseId;
         private int code;
         private String name;
-
-        public Builder teamKey (LeagueTeamPrimaryKey teamKey) {
-            this.teamKey = teamKey;
-            return this;
-        }
 
         public Builder draw(int draw) {
             this.draw = draw;
@@ -373,7 +352,7 @@ public class LeagueTeam {
 
         public LeagueTeam build () {
             return new LeagueTeam(
-                    teamKey, draw, form, loss, played, points, position, shortName, strength
+                    draw, form, loss, played, points, position, shortName, strength
                     , teamDivision, unavailable, win, strengthOverallHome, strengthOverallAway, strengthAttackHome, strengthAttackAway
                     , strengthDefenceHome, strengthDefenceAway, pulseId, code, name
             );
