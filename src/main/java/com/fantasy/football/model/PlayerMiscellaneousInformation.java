@@ -45,6 +45,7 @@ public class PlayerMiscellaneousInformation {
     private PlayerBasicInformation playerCode;
     private String news;
     private OffsetDateTime newsAdded;
+    @Column(name = "ICT_INDX")
     private Float ictIndex;
     private Integer influenceRank;
     private Integer influenceRankType;

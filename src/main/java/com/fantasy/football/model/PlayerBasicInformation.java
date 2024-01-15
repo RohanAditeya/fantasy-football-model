@@ -9,17 +9,18 @@ public class PlayerBasicInformation {
 
     private PlayerBasicInformation () {}
 
-    private PlayerBasicInformation(Long code, String firstName, String secondName, Integer squadNumber, Character status, LeagueTeam teamCode, String webName, PlayerFantasyStatistics playerFantasyStatistics, PlayerGameStatistics playerGameStatistics, PlayerMiscellaneousInformation playerMiscellaneousInformation) {
+    private PlayerBasicInformation(Long code, String firstName, String secondName, Integer squadNumber, Character status, LeagueTeam team, String webName, PlayerFantasyStatistics playerFantasyStatistics, PlayerGameStatistics playerGameStatistics, PlayerMiscellaneousInformation playerMiscellaneousInformation, int teamCode) {
         this.code = code;
         this.firstName = firstName;
         this.secondName = secondName;
         this.squadNumber = squadNumber;
         this.status = status;
-        this.teamCode = teamCode;
+        this.team = team;
         this.webName = webName;
         this.playerFantasyStatistics = playerFantasyStatistics;
         this.playerGameStatistics = playerGameStatistics;
         this.playerMiscellaneousInformation = playerMiscellaneousInformation;
+        this.teamCode = teamCode;
     }
 
     @Id
@@ -32,9 +33,9 @@ public class PlayerBasicInformation {
     private Integer squadNumber;
     @Column(name = "PLYR_STS")
     private Character status;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "TEAM_CODE", referencedColumnName = "CODE")
-    private LeagueTeam teamCode;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_CODE", referencedColumnName = "code")
+    private LeagueTeam team;
     @Column(name = "WEB_NAME")
     private String webName;
     @Nullable
@@ -46,6 +47,8 @@ public class PlayerBasicInformation {
     @Nullable
     @OneToOne(mappedBy = "playerCode")
     private PlayerMiscellaneousInformation playerMiscellaneousInformation;
+    @Transient
+    private int teamCode;
 
     public Long getCode() {
         return code;
@@ -87,12 +90,12 @@ public class PlayerBasicInformation {
         this.status = status;
     }
 
-    public LeagueTeam getTeamCode() {
-        return teamCode;
+    public LeagueTeam getTeam() {
+        return team;
     }
 
-    public void setTeamCode(LeagueTeam teamCode) {
-        this.teamCode = teamCode;
+    public void setTeam(LeagueTeam team) {
+        this.team = team;
     }
 
     public String getWebName() {
@@ -127,17 +130,26 @@ public class PlayerBasicInformation {
         this.playerMiscellaneousInformation = playerMiscellaneousInformation;
     }
 
+    public int getTeamCode() {
+        return teamCode;
+    }
+
+    public void setTeamCode(int teamCode) {
+        this.teamCode = teamCode;
+    }
+
     public static class Builder {
         private Long code;
         private String firstName;
         private String secondName;
         private Integer squadNumber;
         private Character status;
-        private LeagueTeam teamCode;
+        private LeagueTeam team;
         private String webName;
         private PlayerFantasyStatistics playerFantasyStatistics;
         private PlayerGameStatistics playerGameStatistics;
         private PlayerMiscellaneousInformation playerMiscellaneousInformation;
+        private int teamCode;
 
         public Builder code (Long code) {
             this.code = code;
@@ -164,8 +176,8 @@ public class PlayerBasicInformation {
             return this;
         }
 
-        public Builder teamCode (LeagueTeam teamCode) {
-            this.teamCode = teamCode;
+        public Builder team (LeagueTeam team) {
+            this.team = team;
             return this;
         }
 
@@ -189,9 +201,14 @@ public class PlayerBasicInformation {
             return this;
         }
 
+        public Builder teamCode (int teamCode) {
+            this.teamCode = teamCode;
+            return this;
+        }
+
         public PlayerBasicInformation build () {
             return new PlayerBasicInformation(
-                    this.code, this.firstName, this.secondName, this.squadNumber, this.status, this.teamCode, this.webName, playerFantasyStatistics, playerGameStatistics, playerMiscellaneousInformation
+                    this.code, this.firstName, this.secondName, this.squadNumber, this.status, this.team, this.webName, playerFantasyStatistics, playerGameStatistics, playerMiscellaneousInformation, teamCode
             );
         }
     }

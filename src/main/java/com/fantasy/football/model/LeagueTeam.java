@@ -6,7 +6,6 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicUpdate
 @Table(name = "LEAGUE_TEAM")
-@IdClass(value = LeagueTeamPrimaryKey.class)
 public class LeagueTeam {
 
     private LeagueTeam () {}
@@ -36,7 +35,6 @@ public class LeagueTeam {
 
     @Id
     private int code;
-    @Id
     private String name;
     private int draw;
     private float form;
