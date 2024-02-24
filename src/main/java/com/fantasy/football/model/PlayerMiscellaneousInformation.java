@@ -1,16 +1,20 @@
 package com.fantasy.football.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.OffsetDateTime;
 
 @Entity
+@DynamicUpdate
 @Table(name = "PLYR_MISC_INFO")
 public class PlayerMiscellaneousInformation {
 
     private PlayerMiscellaneousInformation () {}
 
-    private PlayerMiscellaneousInformation(PlayerBasicInformation playerCode, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
+    public PlayerMiscellaneousInformation(PlayerBasicInformation playerCode, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
         this.playerCode = playerCode;
         this.news = news;
         this.newsAdded = newsAdded;
@@ -41,9 +45,15 @@ public class PlayerMiscellaneousInformation {
 
     @Id
     @OneToOne(optional = false)
-    @JoinColumn(name = "PLYR_CODE ", referencedColumnName = "CODE")
+    @JoinColumns(value = {
+            @JoinColumn(name = "PLYR_CODE", referencedColumnName = "code"),
+            @JoinColumn(name = "PLYR_UUID", referencedColumnName = "recordId"),
+            @JoinColumn(name = "PLYR_FRST_NAME", referencedColumnName = "FRST_NAME"),
+            @JoinColumn(name = "PLYR_SECD_NAME", referencedColumnName = "SECD_NAME")
+    })
     private PlayerBasicInformation playerCode;
     private String news;
+    @PastOrPresent
     private OffsetDateTime newsAdded;
     @Column(name = "ICT_INDX")
     private Float ictIndex;
@@ -86,208 +96,108 @@ public class PlayerMiscellaneousInformation {
         return playerCode;
     }
 
-    public void setPlayerCode(PlayerBasicInformation playerCode) {
-        this.playerCode = playerCode;
-    }
-
     public String getNews() {
         return news;
-    }
-
-    public void setNews(String news) {
-        this.news = news;
     }
 
     public OffsetDateTime getNewsAdded() {
         return newsAdded;
     }
 
-    public void setNewsAdded(OffsetDateTime newsAdded) {
-        this.newsAdded = newsAdded;
-    }
-
     public Float getIctIndex() {
         return ictIndex;
-    }
-
-    public void setIctIndex(Float ictIndex) {
-        this.ictIndex = ictIndex;
     }
 
     public Integer getInfluenceRank() {
         return influenceRank;
     }
 
-    public void setInfluenceRank(Integer influenceRank) {
-        this.influenceRank = influenceRank;
-    }
-
     public Integer getInfluenceRankType() {
         return influenceRankType;
-    }
-
-    public void setInfluenceRankType(Integer influenceRankType) {
-        this.influenceRankType = influenceRankType;
     }
 
     public Integer getCreativityRank() {
         return creativityRank;
     }
 
-    public void setCreativityRank(Integer creativityRank) {
-        this.creativityRank = creativityRank;
-    }
-
     public Integer getCreativityRankType() {
         return creativityRankType;
-    }
-
-    public void setCreativityRankType(Integer creativityRankType) {
-        this.creativityRankType = creativityRankType;
     }
 
     public Integer getThreatRank() {
         return threatRank;
     }
 
-    public void setThreatRank(Integer threatRank) {
-        this.threatRank = threatRank;
-    }
-
     public Integer getThreatRankType() {
         return threatRankType;
-    }
-
-    public void setThreatRankType(Integer threatRankType) {
-        this.threatRankType = threatRankType;
     }
 
     public Integer getIctIndexRank() {
         return ictIndexRank;
     }
 
-    public void setIctIndexRank(Integer ictIndexRank) {
-        this.ictIndexRank = ictIndexRank;
-    }
-
     public Integer getIctIndexRankType() {
         return ictIndexRankType;
-    }
-
-    public void setIctIndexRankType(Integer ictIndexRankType) {
-        this.ictIndexRankType = ictIndexRankType;
     }
 
     public String getCornersAndIndirectFreeKicksOrder() {
         return cornersAndIndirectFreeKicksOrder;
     }
 
-    public void setCornersAndIndirectFreeKicksOrder(String cornersAndIndirectFreeKicksOrder) {
-        this.cornersAndIndirectFreeKicksOrder = cornersAndIndirectFreeKicksOrder;
-    }
-
     public String getCornersAndIndirectFreeKicksText() {
         return cornersAndIndirectFreeKicksText;
-    }
-
-    public void setCornersAndIndirectFreeKicksText(String cornersAndIndirectFreeKicksText) {
-        this.cornersAndIndirectFreeKicksText = cornersAndIndirectFreeKicksText;
     }
 
     public String getDirectFreeKicksOrder() {
         return directFreeKicksOrder;
     }
 
-    public void setDirectFreeKicksOrder(String directFreeKicksOrder) {
-        this.directFreeKicksOrder = directFreeKicksOrder;
-    }
-
     public String getDirectFreeKicksText() {
         return directFreeKicksText;
-    }
-
-    public void setDirectFreeKicksText(String directFreeKicksText) {
-        this.directFreeKicksText = directFreeKicksText;
     }
 
     public String getPenaltiesOrder() {
         return penaltiesOrder;
     }
 
-    public void setPenaltiesOrder(String penaltiesOrder) {
-        this.penaltiesOrder = penaltiesOrder;
-    }
-
     public String getPenaltiesText() {
         return penaltiesText;
-    }
-
-    public void setPenaltiesText(String penaltiesText) {
-        this.penaltiesText = penaltiesText;
     }
 
     public Integer getNowCostRank() {
         return nowCostRank;
     }
 
-    public void setNowCostRank(Integer nowCostRank) {
-        this.nowCostRank = nowCostRank;
-    }
-
     public Integer getNowCostRankType() {
         return nowCostRankType;
-    }
-
-    public void setNowCostRankType(Integer nowCostRankType) {
-        this.nowCostRankType = nowCostRankType;
     }
 
     public Integer getFormRank() {
         return formRank;
     }
 
-    public void setFormRank(Integer formRank) {
-        this.formRank = formRank;
-    }
-
     public Integer getFormRankType() {
         return formRankType;
-    }
-
-    public void setFormRankType(Integer formRankType) {
-        this.formRankType = formRankType;
     }
 
     public Integer getPointsPerGameRank() {
         return pointsPerGameRank;
     }
 
-    public void setPointsPerGameRank(Integer pointsPerGameRank) {
-        this.pointsPerGameRank = pointsPerGameRank;
-    }
-
     public Integer getPointsPerGameRankType() {
         return pointsPerGameRankType;
-    }
-
-    public void setPointsPerGameRankType(Integer pointsPerGameRankType) {
-        this.pointsPerGameRankType = pointsPerGameRankType;
     }
 
     public Integer getSelectedRank() {
         return selectedRank;
     }
 
-    public void setSelectedRank(Integer selectedRank) {
-        this.selectedRank = selectedRank;
-    }
-
     public Integer getSelectedRankType() {
         return selectedRankType;
     }
 
-    public void setSelectedRankType(Integer selectedRankType) {
-        this.selectedRankType = selectedRankType;
+    void setPlayerCode(PlayerBasicInformation playerCode) {
+        this.playerCode = playerCode;
     }
 
     public static class Builder {
@@ -318,143 +228,138 @@ public class PlayerMiscellaneousInformation {
         private Integer selectedRank;
         private Integer selectedRankType;
 
-        public Builder setPlayerCode(PlayerBasicInformation playerCode) {
+        public Builder playerCode(PlayerBasicInformation playerCode) {
             this.playerCode = playerCode;
             return this;
         }
 
-        public Builder setNews(String news) {
+        public Builder news(String news) {
             this.news = news;
             return this;
         }
 
-        public Builder setNewsAdded(OffsetDateTime newsAdded) {
+        public Builder newsAdded(OffsetDateTime newsAdded) {
             this.newsAdded = newsAdded;
             return this;
         }
 
-        public Builder setIctIndex(Float ictIndex) {
+        public Builder ictIndex(Float ictIndex) {
             this.ictIndex = ictIndex;
             return this;
         }
 
-        public Builder setInfluenceRank(Integer influenceRank) {
+        public Builder influenceRank(Integer influenceRank) {
             this.influenceRank = influenceRank;
             return this;
         }
 
-        public Builder setInfluenceRankType(Integer influenceRankType) {
+        public Builder influenceRankType(Integer influenceRankType) {
             this.influenceRankType = influenceRankType;
             return this;
         }
 
-        public Builder setCreativityRank(Integer creativityRank) {
+        public Builder creativityRank(Integer creativityRank) {
             this.creativityRank = creativityRank;
             return this;
         }
 
-        public Builder setCreativityRankType(Integer creativityRankType) {
+        public Builder creativityRankType(Integer creativityRankType) {
             this.creativityRankType = creativityRankType;
             return this;
         }
 
-        public Builder setThreatRank(Integer threatRank) {
+        public Builder threatRank(Integer threatRank) {
             this.threatRank = threatRank;
             return this;
         }
 
-        public Builder setThreatRankType(Integer threatRankType) {
+        public Builder threatRankType(Integer threatRankType) {
             this.threatRankType = threatRankType;
             return this;
         }
 
-        public Builder setIctIndexRank(Integer ictIndexRank) {
+        public Builder ictIndexRank(Integer ictIndexRank) {
             this.ictIndexRank = ictIndexRank;
             return this;
         }
 
-        public Builder setIctIndexRankType(Integer ictIndexRankType) {
+        public Builder ictIndexRankType(Integer ictIndexRankType) {
             this.ictIndexRankType = ictIndexRankType;
             return this;
         }
 
-        public Builder setCornersAndIndirectFreeKicksOrder(String cornersAndIndirectFreeKicksOrder) {
+        public Builder cornersAndIndirectFreeKicksOrder(String cornersAndIndirectFreeKicksOrder) {
             this.cornersAndIndirectFreeKicksOrder = cornersAndIndirectFreeKicksOrder;
             return this;
         }
 
-        public Builder setCornersAndIndirectFreeKicksText(String cornersAndIndirectFreeKicksText) {
+        public Builder cornersAndIndirectFreeKicksText(String cornersAndIndirectFreeKicksText) {
             this.cornersAndIndirectFreeKicksText = cornersAndIndirectFreeKicksText;
             return this;
         }
 
-        public Builder setDirectFreeKicksOrder(String directFreeKicksOrder) {
+        public Builder directFreeKicksOrder(String directFreeKicksOrder) {
             this.directFreeKicksOrder = directFreeKicksOrder;
             return this;
         }
 
-        public Builder setDirectFreeKicksText(String directFreeKicksText) {
+        public Builder directFreeKicksText(String directFreeKicksText) {
             this.directFreeKicksText = directFreeKicksText;
             return this;
         }
 
-        public Builder setPenaltiesOrder(String penaltiesOrder) {
+        public Builder penaltiesOrder(String penaltiesOrder) {
             this.penaltiesOrder = penaltiesOrder;
             return this;
         }
 
-        public Builder setPenaltiesText(String penaltiesText) {
+        public Builder penaltiesText(String penaltiesText) {
             this.penaltiesText = penaltiesText;
             return this;
         }
 
-        public Builder setNowCostRank(Integer nowCostRank) {
+        public Builder nowCostRank(Integer nowCostRank) {
             this.nowCostRank = nowCostRank;
             return this;
         }
 
-        public Builder setNowCostRankType(Integer nowCostRankType) {
+        public Builder nowCostRankType(Integer nowCostRankType) {
             this.nowCostRankType = nowCostRankType;
             return this;
         }
 
-        public Builder setFormRank(Integer formRank) {
+        public Builder formRank(Integer formRank) {
             this.formRank = formRank;
             return this;
         }
 
-        public Builder setFormRankType(Integer formRankType) {
+        public Builder formRankType(Integer formRankType) {
             this.formRankType = formRankType;
             return this;
         }
 
-        public Builder setPointsPerGameRank(Integer pointsPerGameRank) {
+        public Builder pointsPerGameRank(Integer pointsPerGameRank) {
             this.pointsPerGameRank = pointsPerGameRank;
             return this;
         }
 
-        public Builder setPointsPerGameRankType(Integer pointsPerGameRankType) {
+        public Builder pointsPerGameRankType(Integer pointsPerGameRankType) {
             this.pointsPerGameRankType = pointsPerGameRankType;
             return this;
         }
 
-        public Builder setSelectedRank(Integer selectedRank) {
+        public Builder selectedRank(Integer selectedRank) {
             this.selectedRank = selectedRank;
             return this;
         }
 
-        public Builder setSelectedRankType(Integer selectedRankType) {
+        public Builder selectedRankType(Integer selectedRankType) {
             this.selectedRankType = selectedRankType;
             return this;
         }
 
         public PlayerMiscellaneousInformation build () {
-            return new PlayerMiscellaneousInformation(
-                    this.playerCode, this.news, this.newsAdded, this.ictIndex, this.influenceRank, this.influenceRankType, this.creativityRank, this.creativityRankType
-                    , this.threatRank, this.threatRankType, this.ictIndexRank, this.ictIndexRankType, this.cornersAndIndirectFreeKicksOrder, this.cornersAndIndirectFreeKicksText
-                    , this.directFreeKicksOrder, this.directFreeKicksText, this.penaltiesOrder, this.penaltiesText, this.nowCostRank, this.nowCostRankType
-                    , this.formRank, this.formRankType, this.pointsPerGameRank, this.pointsPerGameRankType, this.selectedRank, this.selectedRankType
-            );
+            return new PlayerMiscellaneousInformation(this.playerCode, this.news, this.newsAdded, this.ictIndex, this.influenceRank, this.influenceRankType, this.creativityRank, this.creativityRankType, this.threatRank, this.threatRankType, this.ictIndexRank, this.ictIndexRankType, this.cornersAndIndirectFreeKicksOrder, this.cornersAndIndirectFreeKicksText, this.directFreeKicksOrder, this.directFreeKicksText, this.penaltiesOrder, this.penaltiesText, this.nowCostRank, this.nowCostRankType, this.formRank, this.formRankType, this.pointsPerGameRank, this.pointsPerGameRankType, this.selectedRank, this.selectedRankType);
         }
     }
 }

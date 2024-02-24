@@ -1,0 +1,1 @@
+INSERT INTO LEAGUE_TEAM (recordId, PULSE_ID, SHRT_NAME, STRGTH, STRGTH_ATT_AWAY, STRGTH_ATT_HOME, STRGTH_DEF_AWAY, STRGTH_DEF_HOME, STRGTH_OVR_AWAY, STRGTH_OVR_HOME, UN_AVLBL, code, draw, form, loss, played, points, position, win, TEAM_DIV, name) VALUES (RANDOM_UUID(), 1, 'ARS', 1, 1, 1, 1, 1, 1, 1, false, 1, 0, 1, 0, 38, 100, 1, 38, 1, 'Arsenal');

@@ -1,14 +1,16 @@
 package com.fantasy.football.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
+@DynamicUpdate
 @Table(name = "PLYR_FANT_STCS")
 public class PlayerFantasyStatistics {
 
     private PlayerFantasyStatistics () {}
 
-    private PlayerFantasyStatistics(PlayerBasicInformation playerCode, Integer chanceOfPlayingNextRound, Integer chanceOfPlayingThisRound, Integer dreamTeamCount, Float expectedPointsNext, Float expectedPointsThis, Integer eventPoints, Boolean isInDreamTeam, Float form, Integer nowCost, Float pointsPerGame, Float selectedByPercent, Integer totalPoints, Long transfersIn, Long transfersOut, Float valueForm, Float valueSeason, Integer bonus, Integer bps, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float expectedGoalsPer90, Float expectedAssistsPer90, Float expectedGoalInvolvementsPer90, Float expectedGoalConcededPer90) {
+    public PlayerFantasyStatistics(PlayerBasicInformation playerCode, Integer chanceOfPlayingNextRound, Integer chanceOfPlayingThisRound, Integer dreamTeamCount, Float expectedPointsNext, Float expectedPointsThis, Integer eventPoints, Boolean isInDreamTeam, Float form, Integer nowCost, Float pointsPerGame, Float selectedByPercent, Integer totalPoints, Long transfersIn, Long transfersOut, Float valueForm, Float valueSeason, Integer bonus, Integer bps, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float expectedGoalsPer90, Float expectedAssistsPer90, Float expectedGoalInvolvementsPer90, Float expectedGoalConcededPer90) {
         this.playerCode = playerCode;
         this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
         this.chanceOfPlayingThisRound = chanceOfPlayingThisRound;
@@ -40,7 +42,12 @@ public class PlayerFantasyStatistics {
 
     @Id
     @OneToOne(optional = false)
-    @JoinColumn(name = "PLYR_CODE", referencedColumnName = "CODE")
+    @JoinColumns(value = {
+            @JoinColumn(name = "PLYR_CODE", referencedColumnName = "code"),
+            @JoinColumn(name = "PLYR_UUID", referencedColumnName = "recordId"),
+            @JoinColumn(name = "PLYR_FRST_NAME", referencedColumnName = "FRST_NAME"),
+            @JoinColumn(name = "PLYR_SECD_NAME", referencedColumnName = "SECD_NAME")
+    })
     private PlayerBasicInformation playerCode;
     @Column(name = "CHNC_OF_PLYNG_NXT_RD")
     private Integer chanceOfPlayingNextRound;
@@ -96,220 +103,115 @@ public class PlayerFantasyStatistics {
         return playerCode;
     }
 
-    public void setPlayerCode(PlayerBasicInformation playerCode) {
-        this.playerCode = playerCode;
-    }
-
     public Integer getChanceOfPlayingNextRound() {
         return chanceOfPlayingNextRound;
-    }
-
-    public void setChanceOfPlayingNextRound(Integer chanceOfPlayingNextRound) {
-        this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
     }
 
     public Integer getChanceOfPlayingThisRound() {
         return chanceOfPlayingThisRound;
     }
 
-    public void setChanceOfPlayingThisRound(Integer chanceOfPlayingThisRound) {
-        this.chanceOfPlayingThisRound = chanceOfPlayingThisRound;
-    }
-
     public Integer getDreamTeamCount() {
         return dreamTeamCount;
-    }
-
-    public void setDreamTeamCount(Integer dreamTeamCount) {
-        this.dreamTeamCount = dreamTeamCount;
     }
 
     public Float getExpectedPointsNext() {
         return expectedPointsNext;
     }
 
-    public void setExpectedPointsNext(Float expectedPointsNext) {
-        this.expectedPointsNext = expectedPointsNext;
-    }
-
     public Float getExpectedPointsThis() {
         return expectedPointsThis;
-    }
-
-    public void setExpectedPointsThis(Float expectedPointsThis) {
-        this.expectedPointsThis = expectedPointsThis;
     }
 
     public Integer getEventPoints() {
         return eventPoints;
     }
 
-    public void setEventPoints(Integer eventPoints) {
-        this.eventPoints = eventPoints;
-    }
-
     public Boolean getInDreamTeam() {
         return isInDreamTeam;
-    }
-
-    public void setInDreamTeam(Boolean inDreamTeam) {
-        isInDreamTeam = inDreamTeam;
     }
 
     public Float getForm() {
         return form;
     }
 
-    public void setForm(Float form) {
-        this.form = form;
+    public Integer getNowCost() {
+        return nowCost;
     }
 
     public Float getPointsPerGame() {
         return pointsPerGame;
     }
 
-    public void setPointsPerGame(Float pointsPerGame) {
-        this.pointsPerGame = pointsPerGame;
-    }
-
     public Float getSelectedByPercent() {
         return selectedByPercent;
-    }
-
-    public void setSelectedByPercent(Float selectedByPercent) {
-        this.selectedByPercent = selectedByPercent;
     }
 
     public Integer getTotalPoints() {
         return totalPoints;
     }
 
-    public void setTotalPoints(Integer totalPoints) {
-        this.totalPoints = totalPoints;
-    }
-
     public Long getTransfersIn() {
         return transfersIn;
-    }
-
-    public void setTransfersIn(Long transfersIn) {
-        this.transfersIn = transfersIn;
     }
 
     public Long getTransfersOut() {
         return transfersOut;
     }
 
-    public void setTransfersOut(Long transfersOut) {
-        this.transfersOut = transfersOut;
-    }
-
     public Float getValueForm() {
         return valueForm;
-    }
-
-    public void setValueForm(Float valueForm) {
-        this.valueForm = valueForm;
     }
 
     public Float getValueSeason() {
         return valueSeason;
     }
 
-    public void setValueSeason(Float valueSeason) {
-        this.valueSeason = valueSeason;
-    }
-
     public Integer getBonus() {
         return bonus;
-    }
-
-    public void setBonus(Integer bonus) {
-        this.bonus = bonus;
     }
 
     public Integer getBps() {
         return bps;
     }
 
-    public void setBps(Integer bps) {
-        this.bps = bps;
-    }
-
     public Float getExpectedGoals() {
         return expectedGoals;
-    }
-
-    public void setExpectedGoals(Float expectedGoals) {
-        this.expectedGoals = expectedGoals;
     }
 
     public Float getExpectedAssists() {
         return expectedAssists;
     }
 
-    public void setExpectedAssists(Float expectedAssists) {
-        this.expectedAssists = expectedAssists;
-    }
-
     public Float getExpectedGoalInvolvements() {
         return expectedGoalInvolvements;
-    }
-
-    public void setExpectedGoalInvolvements(Float expectedGoalInvolvements) {
-        this.expectedGoalInvolvements = expectedGoalInvolvements;
     }
 
     public Float getExpectedGoalsConceded() {
         return expectedGoalsConceded;
     }
 
-    public void setExpectedGoalsConceded(Float expectedGoalsConceded) {
-        this.expectedGoalsConceded = expectedGoalsConceded;
-    }
-
     public Float getExpectedGoalsPer90() {
         return expectedGoalsPer90;
-    }
-
-    public void setExpectedGoalsPer90(Float expectedGoalsPer90) {
-        this.expectedGoalsPer90 = expectedGoalsPer90;
     }
 
     public Float getExpectedAssistsPer90() {
         return expectedAssistsPer90;
     }
 
-    public void setExpectedAssistsPer90(Float expectedAssistsPer90) {
-        this.expectedAssistsPer90 = expectedAssistsPer90;
-    }
-
     public Float getExpectedGoalInvolvementsPer90() {
         return expectedGoalInvolvementsPer90;
-    }
-
-    public void setExpectedGoalInvolvementsPer90(Float expectedGoalInvolvementsPer90) {
-        this.expectedGoalInvolvementsPer90 = expectedGoalInvolvementsPer90;
     }
 
     public Float getExpectedGoalConcededPer90() {
         return expectedGoalConcededPer90;
     }
 
-    public void setExpectedGoalConcededPer90(Float expectedGoalConcededPer90) {
-        this.expectedGoalConcededPer90 = expectedGoalConcededPer90;
-    }
-
-    public Integer getNowCost() {
-        return nowCost;
-    }
-
-    public void setNowCost(Integer nowCost) {
-        this.nowCost = nowCost;
+    void setPlayerCode(PlayerBasicInformation playerCode) {
+        this.playerCode = playerCode;
     }
 
     public static class Builder {
-
         private PlayerBasicInformation playerCode;
         private Integer chanceOfPlayingNextRound;
         private Integer chanceOfPlayingThisRound;
@@ -338,149 +240,143 @@ public class PlayerFantasyStatistics {
         private Float expectedGoalInvolvementsPer90;
         private Float expectedGoalConcededPer90;
 
-        public Builder playerCode (PlayerBasicInformation playerCode) {
+        public Builder playerCode(PlayerBasicInformation playerCode) {
             this.playerCode = playerCode;
             return this;
         }
 
-        public Builder chanceOfPlayingNextRound (Integer chanceOfPlayingNextRound) {
+        public Builder chanceOfPlayingNextRound(Integer chanceOfPlayingNextRound) {
             this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
             return this;
         }
 
-        public Builder chanceOfPlayingThisRound (Integer chanceOfPlayingThisRound) {
+        public Builder chanceOfPlayingThisRound(Integer chanceOfPlayingThisRound) {
             this.chanceOfPlayingThisRound = chanceOfPlayingThisRound;
             return this;
         }
 
-        public Builder dreamTeamCount (Integer dreamTeamCount) {
+        public Builder dreamTeamCount(Integer dreamTeamCount) {
             this.dreamTeamCount = dreamTeamCount;
             return this;
         }
 
-        public Builder expectedPointsNext (Float expectedPointsNext) {
+        public Builder expectedPointsNext(Float expectedPointsNext) {
             this.expectedPointsNext = expectedPointsNext;
             return this;
         }
 
-        public Builder expectedPointsThis (Float expectedPointsThis) {
+        public Builder expectedPointsThis(Float expectedPointsThis) {
             this.expectedPointsThis = expectedPointsThis;
             return this;
         }
 
-        public Builder eventPoints (Integer eventPoints) {
+        public Builder eventPoints(Integer eventPoints) {
             this.eventPoints = eventPoints;
             return this;
         }
 
-        public Builder isInDreamTeam (Boolean isInDreamTeam) {
-            this.isInDreamTeam = isInDreamTeam;
+        public Builder inDreamTeam(Boolean inDreamTeam) {
+            isInDreamTeam = inDreamTeam;
             return this;
         }
 
-        public Builder form (Float form) {
+        public Builder form(Float form) {
             this.form = form;
             return this;
         }
 
-        public Builder setNowCost(Integer nowCost) {
+        public Builder nowCost(Integer nowCost) {
             this.nowCost = nowCost;
             return this;
         }
 
-        public Builder setPointsPerGame(Float pointsPerGame) {
+        public Builder pointsPerGame(Float pointsPerGame) {
             this.pointsPerGame = pointsPerGame;
             return this;
         }
 
-        public Builder setSelectedByPercent(Float selectedByPercent) {
+        public Builder selectedByPercent(Float selectedByPercent) {
             this.selectedByPercent = selectedByPercent;
             return this;
         }
 
-        public Builder setTotalPoints(Integer totalPoints) {
+        public Builder totalPoints(Integer totalPoints) {
             this.totalPoints = totalPoints;
             return this;
         }
 
-        public Builder setTransfersIn(Long transfersIn) {
+        public Builder transfersIn(Long transfersIn) {
             this.transfersIn = transfersIn;
             return this;
         }
 
-        public Builder setTransfersOut(Long transfersOut) {
+        public Builder transfersOut(Long transfersOut) {
             this.transfersOut = transfersOut;
             return this;
         }
 
-        public Builder setValueForm(Float valueForm) {
+        public Builder valueForm(Float valueForm) {
             this.valueForm = valueForm;
             return this;
         }
 
-        public Builder setValueSeason(Float valueSeason) {
+        public Builder valueSeason(Float valueSeason) {
             this.valueSeason = valueSeason;
             return this;
         }
 
-        public Builder setBonus(Integer bonus) {
+        public Builder bonus(Integer bonus) {
             this.bonus = bonus;
             return this;
         }
 
-        public Builder setBps(Integer bps) {
+        public Builder bps(Integer bps) {
             this.bps = bps;
             return this;
         }
 
-        public Builder setExpectedGoals(Float expectedGoals) {
+        public Builder expectedGoals(Float expectedGoals) {
             this.expectedGoals = expectedGoals;
             return this;
         }
 
-        public Builder setExpectedAssists(Float expectedAssists) {
+        public Builder expectedAssists(Float expectedAssists) {
             this.expectedAssists = expectedAssists;
             return this;
         }
 
-        public Builder setExpectedGoalInvolvements(Float expectedGoalInvolvements) {
+        public Builder expectedGoalInvolvements(Float expectedGoalInvolvements) {
             this.expectedGoalInvolvements = expectedGoalInvolvements;
             return this;
         }
 
-        public Builder setExpectedGoalsConceded(Float expectedGoalsConceded) {
+        public Builder expectedGoalsConceded(Float expectedGoalsConceded) {
             this.expectedGoalsConceded = expectedGoalsConceded;
             return this;
         }
 
-        public Builder setExpectedGoalsPer90(Float expectedGoalsPer90) {
+        public Builder expectedGoalsPer90(Float expectedGoalsPer90) {
             this.expectedGoalsPer90 = expectedGoalsPer90;
             return this;
         }
 
-        public Builder setExpectedAssistsPer90(Float expectedAssistsPer90) {
+        public Builder expectedAssistsPer90(Float expectedAssistsPer90) {
             this.expectedAssistsPer90 = expectedAssistsPer90;
             return this;
         }
 
-        public Builder setExpectedGoalInvolvementsPer90(Float expectedGoalInvolvementsPer90) {
+        public Builder expectedGoalInvolvementsPer90(Float expectedGoalInvolvementsPer90) {
             this.expectedGoalInvolvementsPer90 = expectedGoalInvolvementsPer90;
             return this;
         }
 
-        public Builder setExpectedGoalConcededPer90(Float expectedGoalConcededPer90) {
+        public Builder expectedGoalConcededPer90(Float expectedGoalConcededPer90) {
             this.expectedGoalConcededPer90 = expectedGoalConcededPer90;
             return this;
         }
 
         public PlayerFantasyStatistics build () {
-            return new PlayerFantasyStatistics(
-                    this.playerCode, this.chanceOfPlayingNextRound, this.chanceOfPlayingThisRound, this.dreamTeamCount, this.expectedPointsNext
-                    , this.expectedPointsThis, this.eventPoints, this.isInDreamTeam, this.form, this.nowCost, this.pointsPerGame, this.selectedByPercent
-                    , this.totalPoints, this.transfersIn, this.transfersOut, this.valueForm, this.valueSeason, this.bonus, this.bps, this.expectedGoals
-                    , this.expectedAssists, this.expectedGoalInvolvements, this.expectedGoalsConceded, this.expectedGoalsPer90, this.expectedAssistsPer90
-                    , this.expectedGoalInvolvementsPer90, this.expectedGoalConcededPer90
-            );
+            return new PlayerFantasyStatistics(this.playerCode, this.chanceOfPlayingNextRound, this.chanceOfPlayingThisRound, this.dreamTeamCount, this.expectedPointsNext, this.expectedPointsThis, this.eventPoints, this.isInDreamTeam, this.form, this.nowCost, this.pointsPerGame, this.selectedByPercent, this.totalPoints, this.transfersIn, this.transfersOut, this.valueForm, this.valueSeason, this.bonus, this.bps, this.expectedGoals, this.expectedAssists, this.expectedGoalInvolvements, this.expectedGoalsConceded, this.expectedGoalsPer90, this.expectedAssistsPer90, this.expectedGoalInvolvementsPer90, this.expectedGoalConcededPer90);
         }
     }
 }
