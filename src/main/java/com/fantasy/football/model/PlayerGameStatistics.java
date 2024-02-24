@@ -95,6 +95,8 @@ public class PlayerGameStatistics {
     @PositiveOrZero
     @Column(name = "GOALS_CNCDED_90")
     private Float goalsConcededPer90;
+    @Version
+    private long versionNumber;
 
     public PlayerBasicInformation getPlayerCode() {
         return playerCode;
@@ -176,8 +178,88 @@ public class PlayerGameStatistics {
         return goalsConcededPer90;
     }
 
+    public long getVersionNumber() {
+        return versionNumber;
+    }
+
     void setPlayerCode(PlayerBasicInformation playerCode) {
         this.playerCode = playerCode;
+    }
+
+    public void setMinutes(Integer minutes) {
+        this.minutes = minutes;
+    }
+
+    public void setGoalsScored(Integer goalsScored) {
+        this.goalsScored = goalsScored;
+    }
+
+    public void setAssists(Integer assists) {
+        this.assists = assists;
+    }
+
+    public void setCleanSheets(Integer cleanSheets) {
+        this.cleanSheets = cleanSheets;
+    }
+
+    public void setGoalsConceded(Integer goalsConceded) {
+        this.goalsConceded = goalsConceded;
+    }
+
+    public void setOwnGoals(Integer ownGoals) {
+        this.ownGoals = ownGoals;
+    }
+
+    public void setPenaltiesSaved(Integer penaltiesSaved) {
+        this.penaltiesSaved = penaltiesSaved;
+    }
+
+    public void setPenaltiesMissed(Integer penaltiesMissed) {
+        this.penaltiesMissed = penaltiesMissed;
+    }
+
+    public void setYellowCards(Integer yellowCards) {
+        this.yellowCards = yellowCards;
+    }
+
+    public void setRedCards(Integer redCards) {
+        this.redCards = redCards;
+    }
+
+    public void setSaves(Integer saves) {
+        this.saves = saves;
+    }
+
+    public void setInfluence(Float influence) {
+        this.influence = influence;
+    }
+
+    public void setCreativity(Float creativity) {
+        this.creativity = creativity;
+    }
+
+    public void setThreat(Float threat) {
+        this.threat = threat;
+    }
+
+    public void setStarts(Integer starts) {
+        this.starts = starts;
+    }
+
+    public void setStartsPer90(Float startsPer90) {
+        this.startsPer90 = startsPer90;
+    }
+
+    public void setCleanSheetsPer90(Float cleanSheetsPer90) {
+        this.cleanSheetsPer90 = cleanSheetsPer90;
+    }
+
+    public void setSavesPer90(Float savesPer90) {
+        this.savesPer90 = savesPer90;
+    }
+
+    public void setGoalsConcededPer90(Float goalsConcededPer90) {
+        this.goalsConcededPer90 = goalsConcededPer90;
     }
 
     public static class Builder {

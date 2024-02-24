@@ -12,6 +12,7 @@ public class LeagueTeamJpaValidationTest extends JpaRegistrarTestBase {
 
     @Test
     @Override
+    @DisplayName(value = "test to validate if JPA creates table")
     public void isTablePresentTest () {
         checkTableIsCreated(LeagueTeam.class);
     }
@@ -42,6 +43,19 @@ public class LeagueTeamJpaValidationTest extends JpaRegistrarTestBase {
             Assertions.assertThat(liverpool.getCompositeKey().getRecordId()).isNull();
             entityManager.persist(liverpool);
             Assertions.assertThat(liverpool.getCompositeKey().getRecordId()).isNotNull();
+        }
+    }
+
+    @Test
+    @DisplayName(value = "test to validate if updates to entities also updates version number")
+    public void persistsCallUpdatesVersionNumber () {
+        try (EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            LeagueTeam arsenal = (LeagueTeam) entityManager.createQuery("select l from LeagueTeam l where l.compositeKey.name = 'Arsenal'").getResultList().get(0);
+            arsenal.setWin(arsenal.getWin() - 1);
+            entityManager.getTransaction().commit();
+            entityManager.refresh(arsenal);
+            Assertions.assertThat(arsenal.getVersionNumber()).isEqualTo(1);
         }
     }
 }

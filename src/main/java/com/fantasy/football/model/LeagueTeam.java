@@ -94,6 +94,9 @@ public class LeagueTeam {
     @Column(name = "PULSE_ID")
     private int pulseId;
 
+    @Version
+    private long versionNumber;
+
     public LeagueTeamPrimaryKey getCompositeKey() {
         return compositeKey;
     }
@@ -170,6 +173,82 @@ public class LeagueTeam {
 
     public int getPulseId() {
         return pulseId;
+    }
+
+    public long getVersionNumber() {
+        return versionNumber;
+    }
+
+    public void setDraw(int draw) {
+        this.draw = draw;
+    }
+
+    public void setForm(float form) {
+        this.form = form;
+    }
+
+    public void setLoss(int loss) {
+        this.loss = loss;
+    }
+
+    public void setPlayed(int played) {
+        this.played = played;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public void setTeamDivision(String teamDivision) {
+        this.teamDivision = teamDivision;
+    }
+
+    public void setUnavailable(boolean unavailable) {
+        this.unavailable = unavailable;
+    }
+
+    public void setWin(int win) {
+        this.win = win;
+    }
+
+    public void setStrengthOverallHome(int strengthOverallHome) {
+        this.strengthOverallHome = strengthOverallHome;
+    }
+
+    public void setStrengthOverallAway(int strengthOverallAway) {
+        this.strengthOverallAway = strengthOverallAway;
+    }
+
+    public void setStrengthAttackHome(int strengthAttackHome) {
+        this.strengthAttackHome = strengthAttackHome;
+    }
+
+    public void setStrengthAttackAway(int strengthAttackAway) {
+        this.strengthAttackAway = strengthAttackAway;
+    }
+
+    public void setStrengthDefenceHome(int strengthDefenceHome) {
+        this.strengthDefenceHome = strengthDefenceHome;
+    }
+
+    public void setStrengthDefenceAway(int strengthDefenceAway) {
+        this.strengthDefenceAway = strengthDefenceAway;
+    }
+
+    public void setPulseId(int pulseId) {
+        this.pulseId = pulseId;
     }
 
     public static class Builder {

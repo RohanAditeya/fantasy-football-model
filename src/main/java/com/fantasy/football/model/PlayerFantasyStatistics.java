@@ -98,6 +98,8 @@ public class PlayerFantasyStatistics {
     private Float expectedGoalInvolvementsPer90;
     @Column(name = "EXP_GOALS_CNCDED_90")
     private Float expectedGoalConcededPer90;
+    @Version
+    private long versionNumber;
 
     public PlayerBasicInformation getPlayerCode() {
         return playerCode;
@@ -207,8 +209,116 @@ public class PlayerFantasyStatistics {
         return expectedGoalConcededPer90;
     }
 
+    public long getVersionNumber() {
+        return versionNumber;
+    }
+
     void setPlayerCode(PlayerBasicInformation playerCode) {
         this.playerCode = playerCode;
+    }
+
+    public void setChanceOfPlayingNextRound(Integer chanceOfPlayingNextRound) {
+        this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
+    }
+
+    public void setChanceOfPlayingThisRound(Integer chanceOfPlayingThisRound) {
+        this.chanceOfPlayingThisRound = chanceOfPlayingThisRound;
+    }
+
+    public void setDreamTeamCount(Integer dreamTeamCount) {
+        this.dreamTeamCount = dreamTeamCount;
+    }
+
+    public void setExpectedPointsNext(Float expectedPointsNext) {
+        this.expectedPointsNext = expectedPointsNext;
+    }
+
+    public void setExpectedPointsThis(Float expectedPointsThis) {
+        this.expectedPointsThis = expectedPointsThis;
+    }
+
+    public void setEventPoints(Integer eventPoints) {
+        this.eventPoints = eventPoints;
+    }
+
+    public void setInDreamTeam(Boolean inDreamTeam) {
+        isInDreamTeam = inDreamTeam;
+    }
+
+    public void setForm(Float form) {
+        this.form = form;
+    }
+
+    public void setNowCost(Integer nowCost) {
+        this.nowCost = nowCost;
+    }
+
+    public void setPointsPerGame(Float pointsPerGame) {
+        this.pointsPerGame = pointsPerGame;
+    }
+
+    public void setSelectedByPercent(Float selectedByPercent) {
+        this.selectedByPercent = selectedByPercent;
+    }
+
+    public void setTotalPoints(Integer totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
+    public void setTransfersIn(Long transfersIn) {
+        this.transfersIn = transfersIn;
+    }
+
+    public void setTransfersOut(Long transfersOut) {
+        this.transfersOut = transfersOut;
+    }
+
+    public void setValueForm(Float valueForm) {
+        this.valueForm = valueForm;
+    }
+
+    public void setValueSeason(Float valueSeason) {
+        this.valueSeason = valueSeason;
+    }
+
+    public void setBonus(Integer bonus) {
+        this.bonus = bonus;
+    }
+
+    public void setBps(Integer bps) {
+        this.bps = bps;
+    }
+
+    public void setExpectedGoals(Float expectedGoals) {
+        this.expectedGoals = expectedGoals;
+    }
+
+    public void setExpectedAssists(Float expectedAssists) {
+        this.expectedAssists = expectedAssists;
+    }
+
+    public void setExpectedGoalInvolvements(Float expectedGoalInvolvements) {
+        this.expectedGoalInvolvements = expectedGoalInvolvements;
+    }
+
+    public void setExpectedGoalsConceded(Float expectedGoalsConceded) {
+        this.expectedGoalsConceded = expectedGoalsConceded;
+    }
+
+    public void setExpectedGoalsPer90(Float expectedGoalsPer90) {
+        this.expectedGoalsPer90 = expectedGoalsPer90;
+    }
+
+    public void setExpectedAssistsPer90(Float expectedAssistsPer90) {
+        this.expectedAssistsPer90 = expectedAssistsPer90;
+    }
+
+    public void setExpectedGoalInvolvementsPer90(Float expectedGoalInvolvementsPer90) {
+        this.expectedGoalInvolvementsPer90 = expectedGoalInvolvementsPer90;
+    }
+
+    public void setExpectedGoalConcededPer90(Float expectedGoalConcededPer90) {
+        this.expectedGoalConcededPer90 = expectedGoalConcededPer90;
     }
 
     public static class Builder {

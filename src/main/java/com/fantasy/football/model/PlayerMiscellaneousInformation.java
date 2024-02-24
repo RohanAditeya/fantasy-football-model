@@ -91,6 +91,8 @@ public class PlayerMiscellaneousInformation {
     private Integer selectedRank;
     @Column(name = "SEL_RANK_TYPE")
     private Integer selectedRankType;
+    @Version
+    private long versionNumber;
 
     public PlayerBasicInformation getPlayerCode() {
         return playerCode;
@@ -196,8 +198,112 @@ public class PlayerMiscellaneousInformation {
         return selectedRankType;
     }
 
+    public long getVersionNumber() {
+        return versionNumber;
+    }
+
     void setPlayerCode(PlayerBasicInformation playerCode) {
         this.playerCode = playerCode;
+    }
+
+    public void setNews(String news) {
+        this.news = news;
+    }
+
+    public void setNewsAdded(OffsetDateTime newsAdded) {
+        this.newsAdded = newsAdded;
+    }
+
+    public void setIctIndex(Float ictIndex) {
+        this.ictIndex = ictIndex;
+    }
+
+    public void setInfluenceRank(Integer influenceRank) {
+        this.influenceRank = influenceRank;
+    }
+
+    public void setInfluenceRankType(Integer influenceRankType) {
+        this.influenceRankType = influenceRankType;
+    }
+
+    public void setCreativityRank(Integer creativityRank) {
+        this.creativityRank = creativityRank;
+    }
+
+    public void setCreativityRankType(Integer creativityRankType) {
+        this.creativityRankType = creativityRankType;
+    }
+
+    public void setThreatRank(Integer threatRank) {
+        this.threatRank = threatRank;
+    }
+
+    public void setThreatRankType(Integer threatRankType) {
+        this.threatRankType = threatRankType;
+    }
+
+    public void setIctIndexRank(Integer ictIndexRank) {
+        this.ictIndexRank = ictIndexRank;
+    }
+
+    public void setIctIndexRankType(Integer ictIndexRankType) {
+        this.ictIndexRankType = ictIndexRankType;
+    }
+
+    public void setCornersAndIndirectFreeKicksOrder(String cornersAndIndirectFreeKicksOrder) {
+        this.cornersAndIndirectFreeKicksOrder = cornersAndIndirectFreeKicksOrder;
+    }
+
+    public void setCornersAndIndirectFreeKicksText(String cornersAndIndirectFreeKicksText) {
+        this.cornersAndIndirectFreeKicksText = cornersAndIndirectFreeKicksText;
+    }
+
+    public void setDirectFreeKicksOrder(String directFreeKicksOrder) {
+        this.directFreeKicksOrder = directFreeKicksOrder;
+    }
+
+    public void setDirectFreeKicksText(String directFreeKicksText) {
+        this.directFreeKicksText = directFreeKicksText;
+    }
+
+    public void setPenaltiesOrder(String penaltiesOrder) {
+        this.penaltiesOrder = penaltiesOrder;
+    }
+
+    public void setPenaltiesText(String penaltiesText) {
+        this.penaltiesText = penaltiesText;
+    }
+
+    public void setNowCostRank(Integer nowCostRank) {
+        this.nowCostRank = nowCostRank;
+    }
+
+    public void setNowCostRankType(Integer nowCostRankType) {
+        this.nowCostRankType = nowCostRankType;
+    }
+
+    public void setFormRank(Integer formRank) {
+        this.formRank = formRank;
+    }
+
+    public void setFormRankType(Integer formRankType) {
+        this.formRankType = formRankType;
+    }
+
+    public void setPointsPerGameRank(Integer pointsPerGameRank) {
+        this.pointsPerGameRank = pointsPerGameRank;
+    }
+
+    public void setPointsPerGameRankType(Integer pointsPerGameRankType) {
+        this.pointsPerGameRankType = pointsPerGameRankType;
+    }
+
+    public void setSelectedRank(Integer selectedRank) {
+        this.selectedRank = selectedRank;
+    }
+
+    public void setSelectedRankType(Integer selectedRankType) {
+        this.selectedRankType = selectedRankType;
     }
 
     public static class Builder {

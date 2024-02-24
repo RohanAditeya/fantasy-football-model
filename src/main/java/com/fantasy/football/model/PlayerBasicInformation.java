@@ -54,6 +54,8 @@ public class PlayerBasicInformation {
     private PlayerGameStatistics playerGameStatistics;
     @OneToOne(mappedBy = "playerCode", orphanRemoval = true, cascade = {CascadeType.ALL})
     private PlayerMiscellaneousInformation playerMiscellaneousInformation;
+    @Version
+    private long versionNumber;
 
     public PlayerBasicInformationPrimaryKey getCompositeKey() {
         return compositeKey;
@@ -85,6 +87,38 @@ public class PlayerBasicInformation {
 
     public PlayerMiscellaneousInformation getPlayerMiscellaneousInformation() {
         return playerMiscellaneousInformation;
+    }
+
+    public long getVersionNumber() {
+        return versionNumber;
+    }
+
+    public void setSquadNumber(Integer squadNumber) {
+        this.squadNumber = squadNumber;
+    }
+
+    public void setStatus(Character status) {
+        this.status = status;
+    }
+
+    public void setTeam(LeagueTeam team) {
+        this.team = team;
+    }
+
+    public void setWebName(String webName) {
+        this.webName = webName;
+    }
+
+    public void setPlayerFantasyStatistics(PlayerFantasyStatistics playerFantasyStatistics) {
+        this.playerFantasyStatistics = playerFantasyStatistics;
+    }
+
+    public void setPlayerGameStatistics(PlayerGameStatistics playerGameStatistics) {
+        this.playerGameStatistics = playerGameStatistics;
+    }
+
+    public void setPlayerMiscellaneousInformation(PlayerMiscellaneousInformation playerMiscellaneousInformation) {
+        this.playerMiscellaneousInformation = playerMiscellaneousInformation;
     }
 
     public static class Builder {
