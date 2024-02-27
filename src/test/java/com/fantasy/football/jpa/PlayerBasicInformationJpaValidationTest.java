@@ -3,8 +3,12 @@ package com.fantasy.football.jpa;
 import com.fantasy.football.model.*;
 import jakarta.persistence.*;
 import org.assertj.core.api.Assertions;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class PlayerBasicInformationJpaValidationTest extends JpaRegistrarTestBase {
 
@@ -122,6 +126,36 @@ public class PlayerBasicInformationJpaValidationTest extends JpaRegistrarTestBas
             Assertions.assertThat(persistenceUtil.isLoaded(trossardReference.getPlayerMiscellaneousInformation())).isFalse();
             Assertions.assertThat(persistenceUtil.isLoaded(trossardReference.getPlayerFantasyStatistics())).isFalse();
             Assertions.assertThat(persistenceUtil.isLoaded(trossardReference.getTeam())).isFalse();
+        }
+    }
+
+    @Test
+    @DisplayName(value = "test to validate entity is not audited when associated entity is changed")
+    public void associatedEntityChangeIsNotAuditedTest () {
+        try (EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            LeagueTeam team = (LeagueTeam) entityManager.createQuery("select i from LeagueTeam i where i.compositeKey.name = 'Arsenal'").getResultList().get(0);
+            PlayerBasicInformationPrimaryKey primaryKey = new PlayerBasicInformationPrimaryKey(1L, "Declan", "Rice");
+            PlayerBasicInformation basicInformationRecord = new PlayerBasicInformation.Builder()
+                    .compositeKey(primaryKey)
+                    .squadNumber(26)
+                    .status('G')
+                    .team(team)
+                    .webName("Rice")
+                    .playerGameStatistics(buildMockGameStatisticsInstance())
+                    .playerMiscellaneousInformation(buildMockMiscellaneousInstance())
+                    .playerFantasyStatistics(buildMockFantasyStatisticsInstance())
+                    .build();
+            entityManager.persist(basicInformationRecord);
+            entityManager.getTransaction().commit();
+            entityManager.getTransaction().begin();
+            AuditReader auditReader = AuditReaderFactory.get(entityManager);
+            List<Number> revisions = auditReader.getRevisions(PlayerBasicInformation.class, basicInformationRecord.getCompositeKey());
+            Assertions.assertThat(revisions.size()).isEqualTo(1);
+            basicInformationRecord.getPlayerGameStatistics().setGoalsScored(1);
+            entityManager.getTransaction().commit();
+            revisions = auditReader.getRevisions(PlayerBasicInformation.class, basicInformationRecord.getCompositeKey());
+            Assertions.assertThat(revisions.size()).isEqualTo(1);
         }
     }
 
