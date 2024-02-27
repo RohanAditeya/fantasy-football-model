@@ -4,15 +4,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.UUID;
+
 @Entity
 @DynamicUpdate
 @Table(name = "PLYR_GAME_STCS")
 public class PlayerGameStatistics {
 
-    private PlayerGameStatistics () {}
+    protected PlayerGameStatistics () {}
 
-    private PlayerGameStatistics(PlayerBasicInformation playerCode, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
-        this.playerCode = playerCode;
+    private PlayerGameStatistics(UUID recordId, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
+        this.recordId = recordId;
         this.minutes = minutes;
         this.goalsScored = goalsScored;
         this.assists = assists;
@@ -35,14 +37,8 @@ public class PlayerGameStatistics {
     }
 
     @Id
-    @OneToOne(optional = false)
-    @JoinColumns(value = {
-            @JoinColumn(name = "PLYR_CODE", referencedColumnName = "code"),
-            @JoinColumn(name = "PLYR_UUID", referencedColumnName = "recordId"),
-            @JoinColumn(name = "PLYR_FRST_NAME", referencedColumnName = "FRST_NAME"),
-            @JoinColumn(name = "PLYR_SECD_NAME", referencedColumnName = "SECD_NAME")
-    })
-    private PlayerBasicInformation playerCode;
+    @GeneratedValue
+    private UUID recordId;
     @PositiveOrZero
     @Column(name = "MINS")
     private Integer minutes;
@@ -98,8 +94,8 @@ public class PlayerGameStatistics {
     @Version
     private long versionNumber;
 
-    public PlayerBasicInformation getPlayerCode() {
-        return playerCode;
+    public UUID getRecordId() {
+        return recordId;
     }
 
     public Integer getMinutes() {
@@ -182,10 +178,6 @@ public class PlayerGameStatistics {
         return versionNumber;
     }
 
-    void setPlayerCode(PlayerBasicInformation playerCode) {
-        this.playerCode = playerCode;
-    }
-
     public void setMinutes(Integer minutes) {
         this.minutes = minutes;
     }
@@ -263,7 +255,7 @@ public class PlayerGameStatistics {
     }
 
     public static class Builder {
-        private PlayerBasicInformation playerCode;
+        private UUID recordId;
         private Integer minutes;
         private Integer goalsScored;
         private Integer assists;
@@ -284,8 +276,8 @@ public class PlayerGameStatistics {
         private Float savesPer90;
         private Float goalsConcededPer90;
 
-        public Builder playerCode(PlayerBasicInformation playerCode) {
-            this.playerCode = playerCode;
+        public Builder recordId(UUID recordId) {
+            this.recordId = recordId;
             return this;
         }
 
@@ -385,7 +377,7 @@ public class PlayerGameStatistics {
         }
 
         public PlayerGameStatistics build () {
-            return new PlayerGameStatistics(this.playerCode, this.minutes, this.goalsScored, this.assists, this.cleanSheets, this.goalsConceded, this.ownGoals, this.penaltiesSaved, this.penaltiesMissed, this.yellowCards, this.redCards, this.saves, this.influence, this.creativity, this.threat, this.starts, this.startsPer90, this.cleanSheetsPer90, this.savesPer90, this.goalsConcededPer90);
+            return new PlayerGameStatistics(this.recordId, this.minutes, this.goalsScored, this.assists, this.cleanSheets, this.goalsConceded, this.ownGoals, this.penaltiesSaved, this.penaltiesMissed, this.yellowCards, this.redCards, this.saves, this.influence, this.creativity, this.threat, this.starts, this.startsPer90, this.cleanSheetsPer90, this.savesPer90, this.goalsConcededPer90);
         }
     }
 }

@@ -6,14 +6,12 @@ import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Optional;
-
 @Entity
 @DynamicUpdate
 @Table(name = "PLYR_BSC_INFO")
 public class PlayerBasicInformation {
 
-    private PlayerBasicInformation () {}
+    protected PlayerBasicInformation () {}
 
     private PlayerBasicInformation(PlayerBasicInformationPrimaryKey compositeKey, Integer squadNumber, Character status, LeagueTeam team, String webName, PlayerFantasyStatistics playerFantasyStatistics, PlayerGameStatistics playerGameStatistics, PlayerMiscellaneousInformation playerMiscellaneousInformation) {
         this.compositeKey = compositeKey;
@@ -48,11 +46,14 @@ public class PlayerBasicInformation {
     @NotNull
     @Column(name = "WEB_NAME", length = 15)
     private String webName;
-    @OneToOne(mappedBy = "playerCode", orphanRemoval = true, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "PLYR_FANT_STCS_PK", referencedColumnName = "recordId")
+    @OneToOne(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
     private PlayerFantasyStatistics playerFantasyStatistics;
-    @OneToOne(mappedBy = "playerCode", orphanRemoval = true, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "PLYR_GAME_STCS_PK", referencedColumnName = "recordId")
+    @OneToOne(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
     private PlayerGameStatistics playerGameStatistics;
-    @OneToOne(mappedBy = "playerCode", orphanRemoval = true, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "PLYR_MISC_INFO_PK", referencedColumnName = "recordId")
+    @OneToOne(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
     private PlayerMiscellaneousInformation playerMiscellaneousInformation;
     @Version
     private long versionNumber;
@@ -172,11 +173,7 @@ public class PlayerBasicInformation {
         }
 
         public PlayerBasicInformation build () {
-            PlayerBasicInformation entity = new PlayerBasicInformation(this.compositeKey, this.squadNumber, this.status, this.team, this.webName, this.playerFantasyStatistics, this.playerGameStatistics, this.playerMiscellaneousInformation);
-            Optional.ofNullable(this.playerGameStatistics).ifPresent(gameStatistics -> gameStatistics.setPlayerCode(entity));
-            Optional.ofNullable(this.playerFantasyStatistics).ifPresent(fantasyStatistics -> fantasyStatistics.setPlayerCode(entity));
-            Optional.ofNullable(this.playerMiscellaneousInformation).ifPresent(miscellaneousInformation -> miscellaneousInformation.setPlayerCode(entity));
-            return entity;
+            return new PlayerBasicInformation(this.compositeKey, this.squadNumber, this.status, this.team, this.webName, this.playerFantasyStatistics, this.playerGameStatistics, this.playerMiscellaneousInformation);
         }
     }
 }

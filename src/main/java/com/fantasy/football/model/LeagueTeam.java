@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
         uniqueConstraints = {@UniqueConstraint(columnNames = {"SHRT_NAME"})}
 )
 public class LeagueTeam {
-    private LeagueTeam () {}
+    protected LeagueTeam () {}
 
     private LeagueTeam(LeagueTeamPrimaryKey compositeKey, int draw, float form, int loss, int played, int points, int position, @NotNull String shortName, int strength, @NotNull String teamDivision, boolean unavailable, int win, int strengthOverallHome, int strengthOverallAway, int strengthAttackHome, int strengthAttackAway, int strengthDefenceHome, int strengthDefenceAway, int pulseId) {
         this.compositeKey = compositeKey;

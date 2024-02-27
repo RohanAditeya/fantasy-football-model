@@ -1,17 +1,20 @@
 package com.fantasy.football.model;
 
+import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.UUID;
 
 @Entity
 @DynamicUpdate
 @Table(name = "PLYR_FANT_STCS")
 public class PlayerFantasyStatistics {
 
-    private PlayerFantasyStatistics () {}
+    protected PlayerFantasyStatistics () {}
 
-    private PlayerFantasyStatistics(PlayerBasicInformation playerCode, Integer chanceOfPlayingNextRound, Integer chanceOfPlayingThisRound, Integer dreamTeamCount, Float expectedPointsNext, Float expectedPointsThis, Integer eventPoints, Boolean isInDreamTeam, Float form, Integer nowCost, Float pointsPerGame, Float selectedByPercent, Integer totalPoints, Long transfersIn, Long transfersOut, Float valueForm, Float valueSeason, Integer bonus, Integer bps, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float expectedGoalsPer90, Float expectedAssistsPer90, Float expectedGoalInvolvementsPer90, Float expectedGoalConcededPer90) {
-        this.playerCode = playerCode;
+    private PlayerFantasyStatistics(UUID recordId, Integer chanceOfPlayingNextRound, Integer chanceOfPlayingThisRound, Integer dreamTeamCount, Float expectedPointsNext, Float expectedPointsThis, Integer eventPoints, Boolean isInDreamTeam, Float form, Integer nowCost, Float pointsPerGame, Float selectedByPercent, Integer totalPoints, Long transfersIn, Long transfersOut, Float valueForm, Float valueSeason, Integer bonus, Integer bps, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float expectedGoalsPer90, Float expectedAssistsPer90, Float expectedGoalInvolvementsPer90, Float expectedGoalConcededPer90) {
+        this.recordId = recordId;
         this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
         this.chanceOfPlayingThisRound = chanceOfPlayingThisRound;
         this.dreamTeamCount = dreamTeamCount;
@@ -41,14 +44,8 @@ public class PlayerFantasyStatistics {
     }
 
     @Id
-    @OneToOne(optional = false)
-    @JoinColumns(value = {
-            @JoinColumn(name = "PLYR_CODE", referencedColumnName = "code"),
-            @JoinColumn(name = "PLYR_UUID", referencedColumnName = "recordId"),
-            @JoinColumn(name = "PLYR_FRST_NAME", referencedColumnName = "FRST_NAME"),
-            @JoinColumn(name = "PLYR_SECD_NAME", referencedColumnName = "SECD_NAME")
-    })
-    private PlayerBasicInformation playerCode;
+    @GeneratedValue
+    private UUID recordId;
     @Column(name = "CHNC_OF_PLYNG_NXT_RD")
     private Integer chanceOfPlayingNextRound;
     @Column(name = "CHNC_OF_PLYNG_CURR_RD")
@@ -101,8 +98,8 @@ public class PlayerFantasyStatistics {
     @Version
     private long versionNumber;
 
-    public PlayerBasicInformation getPlayerCode() {
-        return playerCode;
+    public UUID getRecordId() {
+        return recordId;
     }
 
     public Integer getChanceOfPlayingNextRound() {
@@ -213,10 +210,6 @@ public class PlayerFantasyStatistics {
         return versionNumber;
     }
 
-    void setPlayerCode(PlayerBasicInformation playerCode) {
-        this.playerCode = playerCode;
-    }
-
     public void setChanceOfPlayingNextRound(Integer chanceOfPlayingNextRound) {
         this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
     }
@@ -322,7 +315,7 @@ public class PlayerFantasyStatistics {
     }
 
     public static class Builder {
-        private PlayerBasicInformation playerCode;
+        private UUID recordId;
         private Integer chanceOfPlayingNextRound;
         private Integer chanceOfPlayingThisRound;
         private Integer dreamTeamCount;
@@ -350,8 +343,8 @@ public class PlayerFantasyStatistics {
         private Float expectedGoalInvolvementsPer90;
         private Float expectedGoalConcededPer90;
 
-        public Builder playerCode(PlayerBasicInformation playerCode) {
-            this.playerCode = playerCode;
+        public Builder recordId(UUID recordId) {
+            this.recordId = recordId;
             return this;
         }
 
@@ -486,7 +479,7 @@ public class PlayerFantasyStatistics {
         }
 
         public PlayerFantasyStatistics build () {
-            return new PlayerFantasyStatistics(this.playerCode, this.chanceOfPlayingNextRound, this.chanceOfPlayingThisRound, this.dreamTeamCount, this.expectedPointsNext, this.expectedPointsThis, this.eventPoints, this.isInDreamTeam, this.form, this.nowCost, this.pointsPerGame, this.selectedByPercent, this.totalPoints, this.transfersIn, this.transfersOut, this.valueForm, this.valueSeason, this.bonus, this.bps, this.expectedGoals, this.expectedAssists, this.expectedGoalInvolvements, this.expectedGoalsConceded, this.expectedGoalsPer90, this.expectedAssistsPer90, this.expectedGoalInvolvementsPer90, this.expectedGoalConcededPer90);
+            return new PlayerFantasyStatistics(this.recordId, this.chanceOfPlayingNextRound, this.chanceOfPlayingThisRound, this.dreamTeamCount, this.expectedPointsNext, this.expectedPointsThis, this.eventPoints, this.isInDreamTeam, this.form, this.nowCost, this.pointsPerGame, this.selectedByPercent, this.totalPoints, this.transfersIn, this.transfersOut, this.valueForm, this.valueSeason, this.bonus, this.bps, this.expectedGoals, this.expectedAssists, this.expectedGoalInvolvements, this.expectedGoalsConceded, this.expectedGoalsPer90, this.expectedAssistsPer90, this.expectedGoalInvolvementsPer90, this.expectedGoalConcededPer90);
         }
     }
 }

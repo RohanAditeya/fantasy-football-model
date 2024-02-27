@@ -1,10 +1,7 @@
 package com.fantasy.football.jpa;
 
-import com.fantasy.football.model.LeagueTeam;
-import com.fantasy.football.model.PlayerBasicInformation;
-import com.fantasy.football.model.PlayerBasicInformationPrimaryKey;
-import com.fantasy.football.model.PlayerGameStatistics;
-import jakarta.persistence.EntityManager;
+import com.fantasy.football.model.*;
+import jakarta.persistence.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +27,9 @@ public class PlayerBasicInformationJpaValidationTest extends JpaRegistrarTestBas
                     .status('G')
                     .team(team)
                     .webName("Odegaard")
+                    .playerGameStatistics(buildMockGameStatisticsInstance())
+                    .playerMiscellaneousInformation(buildMockMiscellaneousInstance())
+                    .playerFantasyStatistics(buildMockFantasyStatisticsInstance())
                     .build();
             Assertions.assertThat(basicInformationRecord.getCompositeKey().getRecordId()).isNull();
             entityManager.persist(basicInformationRecord);
@@ -45,19 +45,15 @@ public class PlayerBasicInformationJpaValidationTest extends JpaRegistrarTestBas
             entityManager.getTransaction().begin();
             LeagueTeam team = (LeagueTeam) entityManager.createQuery("select i from LeagueTeam i where i.compositeKey.name = 'Arsenal'").getResultList().get(0);
             PlayerBasicInformationPrimaryKey primaryKey = new PlayerBasicInformationPrimaryKey(1L, "Kai", "Havertz");
-            PlayerGameStatistics gameStatistics = new PlayerGameStatistics.Builder()
-                    .minutes(90)
-                    .goalsScored(5)
-                    .assists(5)
-                    .cleanSheets(0)
-                    .build();
             PlayerBasicInformation basicInformationRecord = new PlayerBasicInformation.Builder()
                     .compositeKey(primaryKey)
                     .squadNumber(11)
                     .status('G')
                     .team(team)
                     .webName("Havertz")
-                    .playerGameStatistics(gameStatistics)
+                    .playerGameStatistics(buildMockGameStatisticsInstance())
+                    .playerMiscellaneousInformation(buildMockMiscellaneousInstance())
+                    .playerFantasyStatistics(buildMockFantasyStatisticsInstance())
                     .build();
             entityManager.persist(basicInformationRecord);
             Assertions.assertThat(entityManager.createQuery("select g from PlayerGameStatistics g").getResultList().size()).isEqualTo(1);
@@ -74,19 +70,15 @@ public class PlayerBasicInformationJpaValidationTest extends JpaRegistrarTestBas
             entityManager.getTransaction().begin();
             LeagueTeam team = (LeagueTeam) entityManager.createQuery("select i from LeagueTeam i where i.compositeKey.name = 'Arsenal'").getResultList().get(0);
             PlayerBasicInformationPrimaryKey primaryKey = new PlayerBasicInformationPrimaryKey(1L, "Gabriel", "Martinelli");
-            PlayerGameStatistics gameStatistics = new PlayerGameStatistics.Builder()
-                    .minutes(90)
-                    .goalsScored(5)
-                    .assists(5)
-                    .cleanSheets(0)
-                    .build();
             PlayerBasicInformation basicInformationRecord = new PlayerBasicInformation.Builder()
                     .compositeKey(primaryKey)
                     .squadNumber(11)
                     .status('G')
                     .team(team)
                     .webName("Martinelli")
-                    .playerGameStatistics(gameStatistics)
+                    .playerGameStatistics(buildMockGameStatisticsInstance())
+                    .playerMiscellaneousInformation(buildMockMiscellaneousInstance())
+                    .playerFantasyStatistics(buildMockFantasyStatisticsInstance())
                     .build();
             entityManager.persist(basicInformationRecord);
             entityManager.getTransaction().commit();
@@ -98,5 +90,50 @@ public class PlayerBasicInformationJpaValidationTest extends JpaRegistrarTestBas
             entityManager.refresh(basicInformationRecord);
             Assertions.assertThat(basicInformationRecord.getVersionNumber()).isEqualTo(1);
         }
+    }
+
+    @Test
+    @DisplayName(value = "test to validate if associations are fetched lazily")
+    public void associationsAreLoadedLazilyTest () {
+        PlayerBasicInformation basicInformationRecord = null;
+        try (EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            LeagueTeam team = (LeagueTeam) entityManager.createQuery("select i from LeagueTeam i where i.compositeKey.name = 'Arsenal'").getResultList().get(0);
+            PlayerBasicInformationPrimaryKey primaryKey = new PlayerBasicInformationPrimaryKey(1L, "Leandro", "Trossard");
+            basicInformationRecord = new PlayerBasicInformation.Builder()
+                    .compositeKey(primaryKey)
+                    .squadNumber(19)
+                    .status('G')
+                    .team(team)
+                    .webName("Trossard")
+                    .playerGameStatistics(buildMockGameStatisticsInstance())
+                    .playerMiscellaneousInformation(buildMockMiscellaneousInstance())
+                    .playerFantasyStatistics(buildMockFantasyStatisticsInstance())
+                    .build();
+            entityManager.persist(basicInformationRecord);
+            entityManager.getTransaction().commit();
+        }
+        // close persistence context and open a new one to load entities again if loaded within
+        // the same persistence context then it is fetched from the cache and not loaded from DB.
+        try (EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
+            PlayerBasicInformation trossardReference = entityManager.getReference(PlayerBasicInformation.class, basicInformationRecord.getCompositeKey());
+            PersistenceUtil persistenceUtil = Persistence.getPersistenceUtil();
+            Assertions.assertThat(persistenceUtil.isLoaded(trossardReference.getPlayerGameStatistics())).isFalse();
+            Assertions.assertThat(persistenceUtil.isLoaded(trossardReference.getPlayerMiscellaneousInformation())).isFalse();
+            Assertions.assertThat(persistenceUtil.isLoaded(trossardReference.getPlayerFantasyStatistics())).isFalse();
+            Assertions.assertThat(persistenceUtil.isLoaded(trossardReference.getTeam())).isFalse();
+        }
+    }
+
+    private PlayerGameStatistics buildMockGameStatisticsInstance () {
+        return new PlayerGameStatistics.Builder().build();
+    }
+
+    private PlayerFantasyStatistics buildMockFantasyStatisticsInstance () {
+        return new PlayerFantasyStatistics.Builder().build();
+    }
+
+    private PlayerMiscellaneousInformation buildMockMiscellaneousInstance () {
+        return new PlayerMiscellaneousInformation.Builder().build();
     }
 }

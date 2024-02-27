@@ -6,16 +6,17 @@ import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Entity
 @DynamicUpdate
 @Table(name = "PLYR_MISC_INFO")
 public class PlayerMiscellaneousInformation {
 
-    private PlayerMiscellaneousInformation () {}
+    protected PlayerMiscellaneousInformation () {}
 
-    private PlayerMiscellaneousInformation(PlayerBasicInformation playerCode, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
-        this.playerCode = playerCode;
+    private PlayerMiscellaneousInformation(UUID recordId, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
+        this.recordId = recordId;
         this.news = news;
         this.newsAdded = newsAdded;
         this.ictIndex = ictIndex;
@@ -44,14 +45,8 @@ public class PlayerMiscellaneousInformation {
     }
 
     @Id
-    @OneToOne(optional = false)
-    @JoinColumns(value = {
-            @JoinColumn(name = "PLYR_CODE", referencedColumnName = "code"),
-            @JoinColumn(name = "PLYR_UUID", referencedColumnName = "recordId"),
-            @JoinColumn(name = "PLYR_FRST_NAME", referencedColumnName = "FRST_NAME"),
-            @JoinColumn(name = "PLYR_SECD_NAME", referencedColumnName = "SECD_NAME")
-    })
-    private PlayerBasicInformation playerCode;
+    @GeneratedValue
+    private UUID recordId;
     private String news;
     @PastOrPresent
     private OffsetDateTime newsAdded;
@@ -94,8 +89,8 @@ public class PlayerMiscellaneousInformation {
     @Version
     private long versionNumber;
 
-    public PlayerBasicInformation getPlayerCode() {
-        return playerCode;
+    public UUID getRecordId() {
+        return recordId;
     }
 
     public String getNews() {
@@ -202,10 +197,6 @@ public class PlayerMiscellaneousInformation {
         return versionNumber;
     }
 
-    void setPlayerCode(PlayerBasicInformation playerCode) {
-        this.playerCode = playerCode;
-    }
-
     public void setNews(String news) {
         this.news = news;
     }
@@ -307,7 +298,7 @@ public class PlayerMiscellaneousInformation {
     }
 
     public static class Builder {
-        private PlayerBasicInformation playerCode;
+        private UUID recordId;
         private String news;
         private OffsetDateTime newsAdded;
         private Float ictIndex;
@@ -334,8 +325,8 @@ public class PlayerMiscellaneousInformation {
         private Integer selectedRank;
         private Integer selectedRankType;
 
-        public Builder playerCode(PlayerBasicInformation playerCode) {
-            this.playerCode = playerCode;
+        public Builder recordId(UUID recordId) {
+            this.recordId = recordId;
             return this;
         }
 
@@ -465,7 +456,7 @@ public class PlayerMiscellaneousInformation {
         }
 
         public PlayerMiscellaneousInformation build () {
-            return new PlayerMiscellaneousInformation(this.playerCode, this.news, this.newsAdded, this.ictIndex, this.influenceRank, this.influenceRankType, this.creativityRank, this.creativityRankType, this.threatRank, this.threatRankType, this.ictIndexRank, this.ictIndexRankType, this.cornersAndIndirectFreeKicksOrder, this.cornersAndIndirectFreeKicksText, this.directFreeKicksOrder, this.directFreeKicksText, this.penaltiesOrder, this.penaltiesText, this.nowCostRank, this.nowCostRankType, this.formRank, this.formRankType, this.pointsPerGameRank, this.pointsPerGameRankType, this.selectedRank, this.selectedRankType);
+            return new PlayerMiscellaneousInformation(this.recordId, this.news, this.newsAdded, this.ictIndex, this.influenceRank, this.influenceRankType, this.creativityRank, this.creativityRankType, this.threatRank, this.threatRankType, this.ictIndexRank, this.ictIndexRankType, this.cornersAndIndirectFreeKicksOrder, this.cornersAndIndirectFreeKicksText, this.directFreeKicksOrder, this.directFreeKicksText, this.penaltiesOrder, this.penaltiesText, this.nowCostRank, this.nowCostRankType, this.formRank, this.formRankType, this.pointsPerGameRank, this.pointsPerGameRankType, this.selectedRank, this.selectedRankType);
         }
     }
 }
