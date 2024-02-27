@@ -13,6 +13,7 @@
         <class>com.fantasy.football.model.PlayerFantasyStatistics</class>
         <class>com.fantasy.football.model.PlayerGameStatistics</class>
         <class>com.fantasy.football.model.PlayerMiscellaneousInformation</class>
+        <class>com.fantasy.football.envers.CustomAuditEntity</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver"
                       value="org.h2.Driver" />
