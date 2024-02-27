@@ -4,9 +4,13 @@ import com.fantasy.football.model.LeagueTeam;
 import com.fantasy.football.model.LeagueTeamPrimaryKey;
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class LeagueTeamJpaValidationTest extends JpaRegistrarTestBase {
 
@@ -56,6 +60,20 @@ public class LeagueTeamJpaValidationTest extends JpaRegistrarTestBase {
             entityManager.getTransaction().commit();
             entityManager.refresh(arsenal);
             Assertions.assertThat(arsenal.getVersionNumber()).isEqualTo(1);
+        }
+    }
+
+    @Test
+    @DisplayName(value = "test to validate audit information is stored properly")
+    public void entitiesAreAuditedTest () {
+        try (EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            LeagueTeam arsenal = (LeagueTeam) entityManager.createQuery("select l from LeagueTeam l where l.compositeKey.name = 'Arsenal'").getResultList().get(0);
+            arsenal.setDraw(arsenal.getDraw() - 1);
+            entityManager.getTransaction().commit();
+            AuditReader auditReader = AuditReaderFactory.get(entityManager);
+            List<Number> revisions = auditReader.getRevisions(LeagueTeam.class, arsenal.getCompositeKey());
+            Assertions.assertThat(revisions.size()).isEqualTo(1);
         }
     }
 }
