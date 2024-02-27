@@ -1,12 +1,13 @@
 package com.fantasy.football.model;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.envers.Audited;
 
 import java.util.UUID;
 
 @Entity
+@Audited
 @DynamicUpdate
 @Table(name = "PLYR_FANT_STCS")
 public class PlayerFantasyStatistics {

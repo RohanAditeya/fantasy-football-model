@@ -5,8 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.envers.Audited;
 
 @Entity
+@Audited
 @DynamicUpdate
 @Table(name = "PLYR_BSC_INFO")
 public class PlayerBasicInformation {

@@ -3,9 +3,11 @@ package com.fantasy.football.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.envers.Audited;
 
 import java.util.UUID;
 
+@Audited
 @Entity
 @DynamicUpdate
 @Table(name = "PLYR_GAME_STCS")

@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.envers.Audited;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+@Audited
 @Entity
 @DynamicUpdate
 @Table(name = "PLYR_MISC_INFO")

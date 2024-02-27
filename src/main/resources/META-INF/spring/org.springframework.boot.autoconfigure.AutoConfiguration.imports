@@ -1,1 +1,1 @@
-com.fantasy.football.FantasyFootballModelJpaRegistrarAutoConfiguration
+com.fantasy.football.autoconfigure.FantasyFootballModelBaseConfiguration

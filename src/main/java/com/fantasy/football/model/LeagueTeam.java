@@ -7,8 +7,10 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.envers.Audited;
 
 @Entity
+@Audited
 @DynamicUpdate
 @Table(
         name = "LEAGUE_TEAM",
