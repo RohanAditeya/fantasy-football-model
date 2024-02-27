@@ -1,5 +1,6 @@
 package com.fantasy.football.autoconfigure;
 
+import com.fantasy.football.envers.CustomAuditEntity;
 import com.fantasy.football.model.LeagueTeam;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -15,6 +16,7 @@ public class EntityRegistrarBeanFactoryPostProcessor implements BeanFactoryPostP
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         Set<String> packagesToScan = new HashSet<>();
         packagesToScan.add(LeagueTeam.class.getPackageName());
+        packagesToScan.add(CustomAuditEntity.class.getPackageName());
         EntityScanPackages.register((DefaultListableBeanFactory) beanFactory, packagesToScan);
     }
 }

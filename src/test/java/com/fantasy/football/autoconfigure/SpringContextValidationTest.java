@@ -1,5 +1,6 @@
 package com.fantasy.football.autoconfigure;
 
+import com.fantasy.football.envers.CustomAuditEntity;
 import com.fantasy.football.model.LeagueTeam;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -28,6 +29,7 @@ public class SpringContextValidationTest {
         ).run(context -> {
             EntityScanPackages entityRegistrarBean = context.getBean(EntityScanPackages.class);
             assertThat(entityRegistrarBean.getPackageNames().contains(LeagueTeam.class.getPackageName())).isTrue();
+            assertThat(entityRegistrarBean.getPackageNames().contains(CustomAuditEntity.class.getPackageName())).isTrue();
         });
     }
 }
