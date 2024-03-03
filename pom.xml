@@ -6,7 +6,7 @@
 
     <groupId>com.fantasy.football</groupId>
     <artifactId>fantasy-football-model</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <parent>
         <groupId>com.framework.another.boot</groupId>
@@ -102,6 +102,9 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
@@ -123,5 +126,12 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <scm>
+        <connection>scm:git:${project.scm.url}</connection>
+        <developerConnection>scm:git:${project.scm.url}</developerConnection>
+        <url>https://github.com/RohanAditeya/fantasy-football-model.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
 </project>
