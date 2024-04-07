@@ -10,6 +10,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScanPackages;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+
 
 public class EntityRegistrarBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     @Override
