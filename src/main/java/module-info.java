@@ -17,4 +17,5 @@ module fantasy.football.model {
     requires io.swagger.v3.oas.annotations;
     requires spring.web;
     requires jakarta.annotation;
+    requires spring.core;
 }
