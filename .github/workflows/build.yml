@@ -32,4 +32,9 @@ jobs:
         run: git config user.email "release-bot@example.com" && git config user.name "release-bot" && mvn --batch-mode release:clean release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'com.fantasy.football.fantasy-football-model'
+          package-type: 'maven'
+          min-versions-to-keep: 2
     timeout-minutes: 10
