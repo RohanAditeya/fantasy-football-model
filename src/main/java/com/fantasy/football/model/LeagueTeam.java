@@ -52,7 +52,7 @@ public class LeagueTeam {
     private int draw;
     @Positive
     @Digits(integer = 5, fraction = 2)
-    private float form;
+    private Float form;
     @PositiveOrZero
     private int loss;
     @PositiveOrZero
@@ -107,7 +107,7 @@ public class LeagueTeam {
         return draw;
     }
 
-    public float getForm() {
+    public Float getForm() {
         return form;
     }
 
@@ -185,7 +185,7 @@ public class LeagueTeam {
         this.draw = draw;
     }
 
-    public void setForm(float form) {
+    public void setForm(Float form) {
         this.form = form;
     }
 
@@ -256,7 +256,7 @@ public class LeagueTeam {
     public static class Builder {
         private LeagueTeamPrimaryKey compositeKey;
         private int draw;
-        private float form;
+        private Float form;
         private int loss;
         private int played;
         private int points;
@@ -284,7 +284,7 @@ public class LeagueTeam {
             return this;
         }
 
-        public Builder form(float form) {
+        public Builder form(Float form) {
             this.form = form;
             return this;
         }
