@@ -1,23 +1,50 @@
 package com.fantasy.football.model;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Audited
-@Entity
-@DynamicUpdate
 @Table(name = "PLYR_MISC_INFO")
 public class PlayerMiscellaneousInformation {
 
-    protected PlayerMiscellaneousInformation () {}
+    public PlayerMiscellaneousInformation(UUID recordId, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType, long versionNumber) {
+        this.recordId = recordId;
+        this.news = news;
+        this.newsAdded = newsAdded;
+        this.ictIndex = ictIndex;
+        this.influenceRank = influenceRank;
+        this.influenceRankType = influenceRankType;
+        this.creativityRank = creativityRank;
+        this.creativityRankType = creativityRankType;
+        this.threatRank = threatRank;
+        this.threatRankType = threatRankType;
+        this.ictIndexRank = ictIndexRank;
+        this.ictIndexRankType = ictIndexRankType;
+        this.cornersAndIndirectFreeKicksOrder = cornersAndIndirectFreeKicksOrder;
+        this.cornersAndIndirectFreeKicksText = cornersAndIndirectFreeKicksText;
+        this.directFreeKicksOrder = directFreeKicksOrder;
+        this.directFreeKicksText = directFreeKicksText;
+        this.penaltiesOrder = penaltiesOrder;
+        this.penaltiesText = penaltiesText;
+        this.nowCostRank = nowCostRank;
+        this.nowCostRankType = nowCostRankType;
+        this.formRank = formRank;
+        this.formRankType = formRankType;
+        this.pointsPerGameRank = pointsPerGameRank;
+        this.pointsPerGameRankType = pointsPerGameRankType;
+        this.selectedRank = selectedRank;
+        this.selectedRankType = selectedRankType;
+        this.versionNumber = versionNumber;
+    }
 
-    private PlayerMiscellaneousInformation(UUID recordId, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
+    @PersistenceCreator
+    public PlayerMiscellaneousInformation(UUID recordId, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType) {
         this.recordId = recordId;
         this.news = news;
         this.newsAdded = newsAdded;
@@ -47,12 +74,11 @@ public class PlayerMiscellaneousInformation {
     }
 
     @Id
-    @GeneratedValue
     private UUID recordId;
     private String news;
     @PastOrPresent
     private OffsetDateTime newsAdded;
-    @Column(name = "ICT_INDX")
+    @Column(value = "ICT_INDX")
     private Float ictIndex;
     private Integer influenceRank;
     private Integer influenceRankType;
@@ -62,31 +88,31 @@ public class PlayerMiscellaneousInformation {
     private Integer threatRankType;
     private Integer ictIndexRank;
     private Integer ictIndexRankType;
-    @Column(name = "CRNRS_AND_INDR_FK_ORDR")
+    @Column(value = "CRNRS_AND_INDR_FK_ORDR")
     private String cornersAndIndirectFreeKicksOrder;
-    @Column(name = "CRNRS_AND_INDR_FK_TX")
+    @Column(value = "CRNRS_AND_INDR_FK_TX")
     private String cornersAndIndirectFreeKicksText;
-    @Column(name = "DR_FK_ORDR")
+    @Column(value = "DR_FK_ORDR")
     private String directFreeKicksOrder;
-    @Column(name = "DR_FK_TX")
+    @Column(value = "DR_FK_TX")
     private String directFreeKicksText;
-    @Column(name = "PEN_ORDR")
+    @Column(value = "PEN_ORDR")
     private String penaltiesOrder;
-    @Column(name = "PEN_TX")
+    @Column(value = "PEN_TX")
     private String penaltiesText;
-    @Column(name = "CURR_COST_RANK")
+    @Column(value = "CURR_COST_RANK")
     private Integer nowCostRank;
-    @Column(name = "CURR_COST_RANK_TYPE")
+    @Column(value = "CURR_COST_RANK_TYPE")
     private Integer nowCostRankType;
     private Integer formRank;
     private Integer formRankType;
-    @Column(name = "PNTS_PER_GAME_RANK")
+    @Column(value = "PNTS_PER_GAME_RANK")
     private Integer pointsPerGameRank;
-    @Column(name = "PNTS_PER_GAME_RANK_TYPE")
+    @Column(value = "PNTS_PER_GAME_RANK_TYPE")
     private Integer pointsPerGameRankType;
-    @Column(name = "SEL_RANK")
+    @Column(value = "SEL_RANK")
     private Integer selectedRank;
-    @Column(name = "SEL_RANK_TYPE")
+    @Column(value = "SEL_RANK_TYPE")
     private Integer selectedRankType;
     @Version
     private long versionNumber;

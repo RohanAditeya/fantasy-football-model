@@ -4,36 +4,31 @@
 
     <groupId>com.fantasy.football</groupId>
     <artifactId>fantasy-football-model</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
 
     <parent>
         <groupId>com.framework.another.boot</groupId>
         <artifactId>another-boot-starter-parent</artifactId>
-        <version>1.0.5</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <swagger-parser.version>2.1.19</swagger-parser.version>
-        <openapi-generator-maven-plugin.version>7.2.0</openapi-generator-maven-plugin.version>
+        <swagger-parser.version>2.1.22</swagger-parser.version>
+        <openapi-generator-maven-plugin.version>7.6.0</openapi-generator-maven-plugin.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-r2dbc</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>com.framework.another.boot</groupId>
-            <artifactId>another-boot-starter</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>another-boot-starter-webflux</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -47,18 +42,13 @@
             <version>${swagger-parser.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-envers</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-h2</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -84,6 +74,10 @@
                                 <requestMappingMode>api_interface</requestMappingMode>
                                 <useJakartaEe>true</useJakartaEe>
                                 <skipDefaultInterface>true</skipDefaultInterface>
+                                <documentationProvider>springdoc</documentationProvider>
+                                <reactive>true</reactive>
+                                <useBeanValidation>true</useBeanValidation>
+                                <useOptional>true</useOptional>
                             </configOptions>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <packageName>com.fantasy.football</packageName>

@@ -1,20 +1,49 @@
 package com.fantasy.football.model;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
-@Entity
-@Audited
-@DynamicUpdate
 @Table(name = "PLYR_FANT_STCS")
 public class PlayerFantasyStatistics {
 
-    protected PlayerFantasyStatistics () {}
+    @PersistenceCreator
+    public PlayerFantasyStatistics(UUID recordId, Integer chanceOfPlayingNextRound, Integer chanceOfPlayingThisRound, Integer dreamTeamCount, Float expectedPointsNext, Float expectedPointsThis, Integer eventPoints, Boolean isInDreamTeam, Float form, Integer nowCost, Float pointsPerGame, Float selectedByPercent, Integer totalPoints, Long transfersIn, Long transfersOut, Float valueForm, Float valueSeason, Integer bonus, Integer bps, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float expectedGoalsPer90, Float expectedAssistsPer90, Float expectedGoalInvolvementsPer90, Float expectedGoalConcededPer90, long versionNumber) {
+        this.recordId = recordId;
+        this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
+        this.chanceOfPlayingThisRound = chanceOfPlayingThisRound;
+        this.dreamTeamCount = dreamTeamCount;
+        this.expectedPointsNext = expectedPointsNext;
+        this.expectedPointsThis = expectedPointsThis;
+        this.eventPoints = eventPoints;
+        this.isInDreamTeam = isInDreamTeam;
+        this.form = form;
+        this.nowCost = nowCost;
+        this.pointsPerGame = pointsPerGame;
+        this.selectedByPercent = selectedByPercent;
+        this.totalPoints = totalPoints;
+        this.transfersIn = transfersIn;
+        this.transfersOut = transfersOut;
+        this.valueForm = valueForm;
+        this.valueSeason = valueSeason;
+        this.bonus = bonus;
+        this.bps = bps;
+        this.expectedGoals = expectedGoals;
+        this.expectedAssists = expectedAssists;
+        this.expectedGoalInvolvements = expectedGoalInvolvements;
+        this.expectedGoalsConceded = expectedGoalsConceded;
+        this.expectedGoalsPer90 = expectedGoalsPer90;
+        this.expectedAssistsPer90 = expectedAssistsPer90;
+        this.expectedGoalInvolvementsPer90 = expectedGoalInvolvementsPer90;
+        this.expectedGoalConcededPer90 = expectedGoalConcededPer90;
+        this.versionNumber = versionNumber;
+    }
 
-    private PlayerFantasyStatistics(UUID recordId, Integer chanceOfPlayingNextRound, Integer chanceOfPlayingThisRound, Integer dreamTeamCount, Float expectedPointsNext, Float expectedPointsThis, Integer eventPoints, Boolean isInDreamTeam, Float form, Integer nowCost, Float pointsPerGame, Float selectedByPercent, Integer totalPoints, Long transfersIn, Long transfersOut, Float valueForm, Float valueSeason, Integer bonus, Integer bps, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float expectedGoalsPer90, Float expectedAssistsPer90, Float expectedGoalInvolvementsPer90, Float expectedGoalConcededPer90) {
+    public PlayerFantasyStatistics(UUID recordId, Integer chanceOfPlayingNextRound, Integer chanceOfPlayingThisRound, Integer dreamTeamCount, Float expectedPointsNext, Float expectedPointsThis, Integer eventPoints, Boolean isInDreamTeam, Float form, Integer nowCost, Float pointsPerGame, Float selectedByPercent, Integer totalPoints, Long transfersIn, Long transfersOut, Float valueForm, Float valueSeason, Integer bonus, Integer bps, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float expectedGoalsPer90, Float expectedAssistsPer90, Float expectedGoalInvolvementsPer90, Float expectedGoalConcededPer90) {
         this.recordId = recordId;
         this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
         this.chanceOfPlayingThisRound = chanceOfPlayingThisRound;
@@ -45,56 +74,55 @@ public class PlayerFantasyStatistics {
     }
 
     @Id
-    @GeneratedValue
     private UUID recordId;
-    @Column(name = "CHNC_OF_PLYNG_NXT_RD")
+    @Column(value = "CHNC_OF_PLYNG_NXT_RD")
     private Integer chanceOfPlayingNextRound;
-    @Column(name = "CHNC_OF_PLYNG_CURR_RD")
+    @Column(value = "CHNC_OF_PLYNG_CURR_RD")
     private Integer chanceOfPlayingThisRound;
-    @Column(name = "DREAM_TM_CT")
+    @Column(value = "DREAM_TM_CT")
     private Integer dreamTeamCount;
-    @Column(name = "EXP_PNTS_NXT")
+    @Column(value = "EXP_PNTS_NXT")
     private Float expectedPointsNext;
-    @Column(name = "EXP_PNTS_CURR")
+    @Column(value = "EXP_PNTS_CURR")
     private Float expectedPointsThis;
-    @Column(name = "EVT_PNTS")
+    @Column(value = "EVT_PNTS")
     private Integer eventPoints;
-    @Column(name = "IS_IN_DREAM_TM")
+    @Column(value = "IS_IN_DREAM_TM")
     private Boolean isInDreamTeam;
     private Float form;
-    @Column(name = "CURR_COST")
+    @Column(value = "CURR_COST")
     private Integer nowCost;
-    @Column(name = "PNTS_PER_GAME")
+    @Column(value = "PNTS_PER_GAME")
     private Float pointsPerGame;
-    @Column(name = "SEL_BY_PRCT")
+    @Column(value = "SEL_BY_PRCT")
     private Float selectedByPercent;
-    @Column(name = "TOTAL_PNTS")
+    @Column(value = "TOTAL_PNTS")
     private Integer totalPoints;
-    @Column(name = "TRNFR_IN")
+    @Column(value = "TRNFR_IN")
     private Long transfersIn;
-    @Column(name = "TRNFR_OUT")
+    @Column(value = "TRNFR_OUT")
     private Long transfersOut;
-    @Column(name = "VAL_FROM")
+    @Column(value = "VAL_FROM")
     private Float valueForm;
-    @Column(name = "VAL_SEASN")
+    @Column(value = "VAL_SEASN")
     private Float valueSeason;
     private Integer bonus;
     private Integer bps;
-    @Column(name = "EXP_GOALS")
+    @Column(value = "EXP_GOALS")
     private Float expectedGoals;
-    @Column(name = "EXP_ASSTS")
+    @Column(value = "EXP_ASSTS")
     private Float expectedAssists;
-    @Column(name = "EXP_GOAL_INVLMTS")
+    @Column(value = "EXP_GOAL_INVLMTS")
     private Float expectedGoalInvolvements;
-    @Column(name = "EXP_GOALS_CNCDED")
+    @Column(value = "EXP_GOALS_CNCDED")
     private Float expectedGoalsConceded;
-    @Column(name = "EXP_GOALS_90")
+    @Column(value = "EXP_GOALS_90")
     private Float expectedGoalsPer90;
-    @Column(name = "EXP_ASSTS_90")
+    @Column(value = "EXP_ASSTS_90")
     private Float expectedAssistsPer90;
-    @Column(name = "EXP_GOAL_INVLMTS_90")
+    @Column(value = "EXP_GOAL_INVLMTS_90")
     private Float expectedGoalInvolvementsPer90;
-    @Column(name = "EXP_GOALS_CNCDED_90")
+    @Column(value = "EXP_GOALS_CNCDED_90")
     private Float expectedGoalConcededPer90;
     @Version
     private long versionNumber;

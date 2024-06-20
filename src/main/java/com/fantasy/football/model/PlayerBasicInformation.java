@@ -1,22 +1,23 @@
 package com.fantasy.football.model;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.relational.core.mapping.Column;
 
-@Entity
-@Audited
-@DynamicUpdate
+import java.util.UUID;
+
 @Table(name = "PLYR_BSC_INFO")
 public class PlayerBasicInformation {
 
-    protected PlayerBasicInformation () {}
-
-    private PlayerBasicInformation(PlayerBasicInformationPrimaryKey compositeKey, Integer squadNumber, Character status, LeagueTeam team, String webName, PlayerFantasyStatistics playerFantasyStatistics, PlayerGameStatistics playerGameStatistics, PlayerMiscellaneousInformation playerMiscellaneousInformation) {
-        this.compositeKey = compositeKey;
+    public PlayerBasicInformation(UUID recordId, Long code, String firstName, String secondName, Integer squadNumber, Character status, UUID team, String webName, UUID playerFantasyStatistics, UUID playerGameStatistics, UUID playerMiscellaneousInformation) {
+        this.recordId = recordId;
+        this.code = code;
+        this.firstName = firstName;
+        this.secondName = secondName;
         this.squadNumber = squadNumber;
         this.status = status;
         this.team = team;
@@ -26,45 +27,66 @@ public class PlayerBasicInformation {
         this.playerMiscellaneousInformation = playerMiscellaneousInformation;
     }
 
-    @EmbeddedId
-    @GeneratedValue(generator = "basicInformationKeyGenerator")
-    @GenericGenerator(
-            name = "basicInformationKeyGenerator",
-            type = PlayerBasicInformationPrimaryKeyGenerator.class
-    )
-    private PlayerBasicInformationPrimaryKey compositeKey;
+    @PersistenceCreator
+    public PlayerBasicInformation(UUID recordId, Long code, String firstName, String secondName, Integer squadNumber, Character status, UUID team, String webName, UUID playerFantasyStatistics, UUID playerGameStatistics, UUID playerMiscellaneousInformation, long versionNumber) {
+        this.recordId = recordId;
+        this.code = code;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.squadNumber = squadNumber;
+        this.status = status;
+        this.team = team;
+        this.webName = webName;
+        this.playerFantasyStatistics = playerFantasyStatistics;
+        this.playerGameStatistics = playerGameStatistics;
+        this.playerMiscellaneousInformation = playerMiscellaneousInformation;
+        this.versionNumber = versionNumber;
+    }
+
+    @Id
+    private UUID recordId;
     @Positive
-    @Column(name = "SQD_NO")
+    private Long code;
+    @Column(value = "FRST_NAME")
+    private String firstName;
+    @Column(value = "SECD_NAME")
+    private String secondName;
+    @Positive
+    @Column(value = "SQD_NO")
     private Integer squadNumber;
-    @Column(name = "PLYR_STS")
+    @Column(value = "PLYR_STS")
     private Character status;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumns(value = {
-            @JoinColumn(name = "TEAM_CODE", referencedColumnName = "code"),
-            @JoinColumn(name = "TEAM_NAME", referencedColumnName = "name"),
-            @JoinColumn(name = "TEAM_UUID", referencedColumnName = "recordId")
-    })
-    private LeagueTeam team;
+    @Column(value = "TEAM_UUID")
+    private UUID team;
     @NotNull
-    @Column(name = "WEB_NAME", length = 15)
+    @Column(value = "WEB_NAME")
     private String webName;
-    @JoinColumn(name = "PLYR_FANT_STCS_PK", referencedColumnName = "recordId")
-    @OneToOne(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
-    private PlayerFantasyStatistics playerFantasyStatistics;
-    @JoinColumn(name = "PLYR_GAME_STCS_PK", referencedColumnName = "recordId")
-    @OneToOne(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
-    private PlayerGameStatistics playerGameStatistics;
-    @JoinColumn(name = "PLYR_MISC_INFO_PK", referencedColumnName = "recordId")
-    @OneToOne(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
-    private PlayerMiscellaneousInformation playerMiscellaneousInformation;
+    @Column(value = "PLYR_FANT_STCS_PK")
+    private UUID playerFantasyStatistics;
+    @Column(value = "PLYR_GAME_STCS_PK")
+    private UUID playerGameStatistics;
+    @Column(value = "PLYR_MISC_INFO_PK")
+    private UUID playerMiscellaneousInformation;
     @Version
     private long versionNumber;
 
-    public PlayerBasicInformationPrimaryKey getCompositeKey() {
-        return compositeKey;
+    public UUID getRecordId() {
+        return recordId;
     }
 
-    public Integer getSquadNumber() {
+    public @Positive Long getCode() {
+        return code;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public @Positive Integer getSquadNumber() {
         return squadNumber;
     }
 
@@ -72,23 +94,23 @@ public class PlayerBasicInformation {
         return status;
     }
 
-    public LeagueTeam getTeam() {
+    public UUID getTeam() {
         return team;
     }
 
-    public String getWebName() {
+    public @NotNull String getWebName() {
         return webName;
     }
 
-    public PlayerFantasyStatistics getPlayerFantasyStatistics() {
+    public UUID getPlayerFantasyStatistics() {
         return playerFantasyStatistics;
     }
 
-    public PlayerGameStatistics getPlayerGameStatistics() {
+    public UUID getPlayerGameStatistics() {
         return playerGameStatistics;
     }
 
-    public PlayerMiscellaneousInformation getPlayerMiscellaneousInformation() {
+    public UUID getPlayerMiscellaneousInformation() {
         return playerMiscellaneousInformation;
     }
 
@@ -96,7 +118,7 @@ public class PlayerBasicInformation {
         return versionNumber;
     }
 
-    public void setSquadNumber(Integer squadNumber) {
+    public void setSquadNumber(@Positive Integer squadNumber) {
         this.squadNumber = squadNumber;
     }
 
@@ -104,78 +126,100 @@ public class PlayerBasicInformation {
         this.status = status;
     }
 
-    public void setTeam(LeagueTeam team) {
+    public void setTeam(UUID team) {
         this.team = team;
     }
 
-    public void setWebName(String webName) {
+    public void setWebName(@NotNull String webName) {
         this.webName = webName;
     }
 
-    public void setPlayerFantasyStatistics(PlayerFantasyStatistics playerFantasyStatistics) {
+    public void setPlayerFantasyStatistics(UUID playerFantasyStatistics) {
         this.playerFantasyStatistics = playerFantasyStatistics;
     }
 
-    public void setPlayerGameStatistics(PlayerGameStatistics playerGameStatistics) {
+    public void setPlayerGameStatistics(UUID playerGameStatistics) {
         this.playerGameStatistics = playerGameStatistics;
     }
 
-    public void setPlayerMiscellaneousInformation(PlayerMiscellaneousInformation playerMiscellaneousInformation) {
+    public void setPlayerMiscellaneousInformation(UUID playerMiscellaneousInformation) {
         this.playerMiscellaneousInformation = playerMiscellaneousInformation;
     }
 
+    public void setVersionNumber(long versionNumber) {
+        this.versionNumber = versionNumber;
+    }
+
     public static class Builder {
-        private PlayerBasicInformationPrimaryKey compositeKey;
+        private UUID recordId;
+        private Long code;
+        private String firstName;
+        private String secondName;
         private Integer squadNumber;
         private Character status;
-        private LeagueTeam team;
+        private UUID team;
         private String webName;
-        private PlayerFantasyStatistics playerFantasyStatistics;
-        private PlayerGameStatistics playerGameStatistics;
-        private PlayerMiscellaneousInformation playerMiscellaneousInformation;
+        private UUID playerFantasyStatistics;
+        private UUID playerGameStatistics;
+        private UUID playerMiscellaneousInformation;
 
-        public Builder compositeKey(PlayerBasicInformationPrimaryKey compositeKey) {
-            this.compositeKey = compositeKey;
+        public Builder recordId (UUID recordId) {
+            this.recordId = recordId;
             return this;
         }
 
-        public Builder squadNumber(Integer squadNumber) {
+        public Builder code (Long code) {
+            this.code = code;
+            return this;
+        }
+
+        public Builder firstName (String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder secondName (String secondName) {
+            this.secondName = secondName;
+            return this;
+        }
+
+        public Builder squadNumber (Integer squadNumber) {
             this.squadNumber = squadNumber;
             return this;
         }
 
-        public Builder status(Character status) {
+        public Builder status (Character status) {
             this.status = status;
             return this;
         }
 
-        public Builder team(LeagueTeam team) {
+        public Builder team (UUID team) {
             this.team = team;
             return this;
         }
 
-        public Builder webName(String webName) {
+        public Builder webName (String webName) {
             this.webName = webName;
             return this;
         }
 
-        public Builder playerFantasyStatistics(PlayerFantasyStatistics playerFantasyStatistics) {
+        public Builder playerFantasyStatistics (UUID playerFantasyStatistics) {
             this.playerFantasyStatistics = playerFantasyStatistics;
             return this;
         }
 
-        public Builder playerGameStatistics(PlayerGameStatistics playerGameStatistics) {
+        public Builder playerGameStatistics (UUID playerGameStatistics) {
             this.playerGameStatistics = playerGameStatistics;
             return this;
         }
 
-        public Builder playerMiscellaneousInformation(PlayerMiscellaneousInformation playerMiscellaneousInformation) {
+        public Builder playerMiscellaneousInformation (UUID playerMiscellaneousInformation) {
             this.playerMiscellaneousInformation = playerMiscellaneousInformation;
             return this;
         }
 
         public PlayerBasicInformation build () {
-            return new PlayerBasicInformation(this.compositeKey, this.squadNumber, this.status, this.team, this.webName, this.playerFantasyStatistics, this.playerGameStatistics, this.playerMiscellaneousInformation);
+            return new PlayerBasicInformation(recordId, code, firstName, secondName, squadNumber, status, team, webName, playerFantasyStatistics, playerGameStatistics, playerMiscellaneousInformation);
         }
     }
 }
