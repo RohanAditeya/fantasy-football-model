@@ -34,9 +34,9 @@ public class PlayerBasicInformationTest {
 				.status("W")
 				.team(UUID.fromString("cdcb1c7f-c686-4865-8404-f04f7fbacadd"))
 				.webName("Odegaard")
-				.playerFantasyStatistics(UUID.randomUUID())
-				.playerGameStatistics(UUID.randomUUID())
-				.playerMiscellaneousInformation(UUID.randomUUID())
+				.playerFantasyStatistics(UUID.fromString("4834a074-e123-4087-8783-66aa161ba90b"))
+				.playerGameStatistics(UUID.fromString("671445a7-bd93-4bbc-9c16-b45051652c27"))
+				.playerMiscellaneousInformation(UUID.fromString("dd10bfec-03b8-4be3-964d-95ae8b5f35bd"))
 				.build();
 		Mono<PlayerBasicInformation> savedRecord = r2dbcEntityTemplate.insert(PlayerBasicInformation.class).using(playerBasicInformation);
 		StepVerifier

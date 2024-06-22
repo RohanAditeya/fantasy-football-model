@@ -12,9 +12,9 @@ import java.util.UUID;
 public class PlayerGameWeekStatistics {
 
 	@PersistenceCreator
-	public PlayerGameWeekStatistics(UUID recordId, int playerCode, int gameWeek, int minutes, int goalsScored, int assists, int cleanSheets, int goalsConceded, int ownGoals, int penaltiesSaved, int penaltiesMissed, int yellowCards, int redCards, int saves, int bonus, int bps, float influence, float creativity, float threat, float ictIndex, float starts, float expectedGoals, float expectedAssists, float expectedGoalInvolvements, float expectedGoalsConceded, float totalPoints, boolean inDreamTeam, long versionNumber) {
+	public PlayerGameWeekStatistics(UUID recordId, UUID playerId, int gameWeek, int minutes, int goalsScored, int assists, int cleanSheets, int goalsConceded, int ownGoals, int penaltiesSaved, int penaltiesMissed, int yellowCards, int redCards, int saves, int bonus, int bps, float influence, float creativity, float threat, float ictIndex, float starts, float expectedGoals, float expectedAssists, float expectedGoalInvolvements, float expectedGoalsConceded, float totalPoints, boolean inDreamTeam, long versionNumber) {
 		this.recordId = recordId;
-		this.playerCode = playerCode;
+		this.playerId = playerId;
 		this.gameWeek = gameWeek;
 		this.minutes = minutes;
 		this.goalsScored = goalsScored;
@@ -43,9 +43,9 @@ public class PlayerGameWeekStatistics {
 		this.versionNumber = versionNumber;
 	}
 
-	public PlayerGameWeekStatistics(UUID recordId, int playerCode, int gameWeek, int minutes, int goalsScored, int assists, int cleanSheets, int goalsConceded, int ownGoals, int penaltiesSaved, int penaltiesMissed, int yellowCards, int redCards, int saves, int bonus, int bps, float influence, float creativity, float threat, float ictIndex, float starts, float expectedGoals, float expectedAssists, float expectedGoalInvolvements, float expectedGoalsConceded, float totalPoints, boolean inDreamTeam) {
+	public PlayerGameWeekStatistics(UUID recordId, UUID playerId, int gameWeek, int minutes, int goalsScored, int assists, int cleanSheets, int goalsConceded, int ownGoals, int penaltiesSaved, int penaltiesMissed, int yellowCards, int redCards, int saves, int bonus, int bps, float influence, float creativity, float threat, float ictIndex, float starts, float expectedGoals, float expectedAssists, float expectedGoalInvolvements, float expectedGoalsConceded, float totalPoints, boolean inDreamTeam) {
 		this.recordId = recordId;
-		this.playerCode = playerCode;
+		this.playerId = playerId;
 		this.gameWeek = gameWeek;
 		this.minutes = minutes;
 		this.goalsScored = goalsScored;
@@ -75,8 +75,8 @@ public class PlayerGameWeekStatistics {
 
 	@Id
 	private UUID recordId;
-	@Column(value = "PLYR_CODE")
-	private int playerCode;
+	@Column(value = "PLYR_ID")
+	private UUID playerId;
 	@Column(value = "GAME_WK")
 	private int gameWeek;
 	@Column(value = "MINS")
@@ -126,8 +126,8 @@ public class PlayerGameWeekStatistics {
 		return recordId;
 	}
 
-	public int getPlayerCode() {
-		return playerCode;
+	public UUID getPlayerCode() {
+		return playerId;
 	}
 
 	public int getGameWeek() {
@@ -236,7 +236,7 @@ public class PlayerGameWeekStatistics {
 
 	public static class Builder {
 		private UUID recordId;
-		private int playerCode;
+		private UUID playerId;
 		private int gameWeek;
 		private int minutes;
 		private int goalsScored;
@@ -268,8 +268,8 @@ public class PlayerGameWeekStatistics {
 			return this;
 		}
 
-		public Builder playerCode (int playerCode) {
-			this.playerCode = playerCode;
+		public Builder playerId (UUID playerId) {
+			this.playerId = playerId;
 			return this;
 		}
 
@@ -399,7 +399,7 @@ public class PlayerGameWeekStatistics {
 		}
 
 		public PlayerGameWeekStatistics build () {
-			return new PlayerGameWeekStatistics(recordId, playerCode, gameWeek, minutes, goalsScored, assists, cleanSheets, goalsConceded, ownGoals, penaltiesSaved, penaltiesMissed, yellowCards, redCards, saves, bonus, bps, influence, creativity, threat, ictIndex, starts, expectedGoals, expectedAssists, expectedGoalInvolvements, expectedGoalsConceded, totalPoints, inDreamTeam);
+			return new PlayerGameWeekStatistics(recordId, playerId, gameWeek, minutes, goalsScored, assists, cleanSheets, goalsConceded, ownGoals, penaltiesSaved, penaltiesMissed, yellowCards, redCards, saves, bonus, bps, influence, creativity, threat, ictIndex, starts, expectedGoals, expectedAssists, expectedGoalInvolvements, expectedGoalsConceded, totalPoints, inDreamTeam);
 		}
 	}
 }

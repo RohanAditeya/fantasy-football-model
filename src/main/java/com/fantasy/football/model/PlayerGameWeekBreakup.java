@@ -32,11 +32,36 @@ public class PlayerGameWeekBreakup {
 
 	@Id
 	private UUID recordId;
-	@Column(value = "GAME_WK")
+	@Column(value = "GAME_WK_PK")
 	private UUID gameWeek;
 	private String identifier;
 	private int points;
+	@Column(value = "ID_VALUE")
 	private int value;
 	@Version
 	private long versionNumber;
+
+	public long getVersionNumber() {
+		return versionNumber;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public UUID getGameWeek() {
+		return gameWeek;
+	}
+
+	public UUID getRecordId() {
+		return recordId;
+	}
 }
