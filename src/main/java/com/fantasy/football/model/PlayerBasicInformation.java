@@ -13,7 +13,7 @@ import java.util.UUID;
 @Table(name = "PLYR_BSC_INFO")
 public class PlayerBasicInformation {
 
-    public PlayerBasicInformation(UUID recordId, Long code, String firstName, String secondName, Integer squadNumber, Character status, UUID team, String webName, UUID playerFantasyStatistics, UUID playerGameStatistics, UUID playerMiscellaneousInformation) {
+    public PlayerBasicInformation(UUID recordId, Long code, String firstName, String secondName, Integer squadNumber, String status, UUID team, String webName, UUID playerFantasyStatistics, UUID playerGameStatistics, UUID playerMiscellaneousInformation) {
         this.recordId = recordId;
         this.code = code;
         this.firstName = firstName;
@@ -28,7 +28,7 @@ public class PlayerBasicInformation {
     }
 
     @PersistenceCreator
-    public PlayerBasicInformation(UUID recordId, Long code, String firstName, String secondName, Integer squadNumber, Character status, UUID team, String webName, UUID playerFantasyStatistics, UUID playerGameStatistics, UUID playerMiscellaneousInformation, long versionNumber) {
+    public PlayerBasicInformation(UUID recordId, Long code, String firstName, String secondName, Integer squadNumber, String status, UUID team, String webName, UUID playerFantasyStatistics, UUID playerGameStatistics, UUID playerMiscellaneousInformation, long versionNumber) {
         this.recordId = recordId;
         this.code = code;
         this.firstName = firstName;
@@ -55,7 +55,7 @@ public class PlayerBasicInformation {
     @Column(value = "SQD_NO")
     private Integer squadNumber;
     @Column(value = "PLYR_STS")
-    private Character status;
+    private String status;
     @Column(value = "TEAM_UUID")
     private UUID team;
     @NotNull
@@ -90,7 +90,7 @@ public class PlayerBasicInformation {
         return squadNumber;
     }
 
-    public Character getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -122,7 +122,7 @@ public class PlayerBasicInformation {
         this.squadNumber = squadNumber;
     }
 
-    public void setStatus(Character status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -156,7 +156,7 @@ public class PlayerBasicInformation {
         private String firstName;
         private String secondName;
         private Integer squadNumber;
-        private Character status;
+        private String status;
         private UUID team;
         private String webName;
         private UUID playerFantasyStatistics;
@@ -188,7 +188,7 @@ public class PlayerBasicInformation {
             return this;
         }
 
-        public Builder status (Character status) {
+        public Builder status (String status) {
             this.status = status;
             return this;
         }
