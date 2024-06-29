@@ -11,6 +11,14 @@ tags:
     description: Handle all CRUD operations for league teams.
   - name: league-player
     description: Handle all CRUD operations for league player
+  - name: league-player-fantasy-statistics
+    description: Handle all CRUD operations for a league player fantasy statistics
+  - name: league-player-game-statistics
+    description: Handle all CRUD operations for a league player game statistics
+  - name: league-player-miscellaneous-statistics
+    description: Handle all CRUD operations for a league player miscellaneous statistics
+  - name: league-player-game-week-scores
+    description: Handle all CRUD operations for a league player game week scores
 paths:
   /league-team:
     summary: API endpoints to manage league team records.
@@ -43,19 +51,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/team_name'
         - $ref: '#/components/parameters/team_code'
-        - $ref: '#/components/parameters/team_id'
-        - name: page_number
-          in: query
-          description: The page number to return if fetching all records
-          required: false
-          schema:
-            type: integer
-            format: int32
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/page_number'
       responses:
         default:
           $ref: '#/components/responses/defaultResponse'
         "200":
-          description: League team record is fetched and returned successfully
+          description: League team records are fetched and returned successfully
           content:
             application/json:
               schema:
@@ -77,7 +79,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/team_name'
         - $ref: '#/components/parameters/team_code'
-        - $ref: '#/components/parameters/team_id'
+        - $ref: '#/components/parameters/record_id'
       responses:
         default:
           $ref: '#/components/responses/defaultResponse'
@@ -95,7 +97,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/team_name'
         - $ref: '#/components/parameters/team_code'
-        - $ref: '#/components/parameters/team_id'
+        - $ref: '#/components/parameters/record_id'
       responses:
         default:
           $ref: '#/components/responses/defaultResponse'
@@ -116,8 +118,379 @@ paths:
             schema:
               type: playerBasicInformation
       responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
         "201":
           description: League player record is created successfully.
+          content:
+            application/json:
+              schema:
+                type: playerBasicInformation
+    get:
+      summary: GET endpoint to fetch league player basic information record
+      operationId: fetch-league-player
+      tags:
+        - league-player
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_code'
+        - name: team_id
+          in: header
+          description: The team UUID to fetch players for
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/page_number'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "200":
+          description: Player records are fetched and returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: playerBasicInformation
+    patch:
+      summary: PATCH endpoint to update/modify player basic information record
+      operationId: update-league-player
+      tags:
+        - league-player
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_code'
+      requestBody:
+        description: The content with the data to be updated on the record
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerBasicInformationPatchDTO'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "202":
+          description: The patch request was accepted and completed successfully
+          content:
+            application/json:
+              schema:
+                type: playerBasicInformation
+    delete:
+      summary: DELETE endpoint to delete player basic information record
+      operationId: delete-league-player
+      tags:
+        - league-player
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_code'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "204":
+          description: The player record was found and deleted successfully.
+  /league-player-fantasy-statistics:
+    summary: API endpoints to handle fantasy statistics details of all league players.
+    post:
+      summary: POST endpoint to create a fantasy statistics record for a league player
+      operationId: create-fantasy-statistics
+      tags:
+        - league-player-fantasy-statistics
+      requestBody:
+        description: The fantasy statistics record that is to be saved.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: playerFantasyStatistics
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "201":
+          description: Fantasy statistics record for player record is created successfully.
+          content:
+            application/json:
+              schema:
+                type: playerFantasyStatistics
+    get:
+      summary: GET endpoint to fetch fantasy statistics record for a league player
+      operationId: fetch-fantasy-statistics
+      tags:
+        - league-player-fantasy-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+        - $ref: '#/components/parameters/page_number'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "200":
+          description: Fantasy statistics records for a player are fetched and returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: playerFantasyStatistics
+    patch:
+      summary: PATCH endpoint to update/modify fantasy statistics record for a league player
+      operationId: update-fantasy-statistics
+      tags:
+        - league-player-fantasy-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+      requestBody:
+        description: The content with the data to be updated on the record
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerFantasyStatisticsPatchDTO'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "202":
+          description: The patch request was accepted and completed successfully
+          content:
+            application/json:
+              schema:
+                type: playerFantasyStatistics
+    delete:
+      summary: DELETE endpoint to delete fantasy statistics record for a league player
+      operationId: delete-fantasy-statistics
+      tags:
+        - league-player-fantasy-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "204":
+          description: The fantasy statistics record for player was found and deleted successfully.
+  /league-player-game-statistics:
+    summary: API endpoints to handle game statistics details of all league players.
+    post:
+      summary: POST endpoint to create a game statistics record for a league player
+      operationId: create-game-statistics
+      tags:
+        - league-player-game-statistics
+      requestBody:
+        description: The game statistics record that is to be saved.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: playerGameStatistics
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "201":
+          description: Game statistics for player record is created successfully.
+          content:
+            application/json:
+              schema:
+                type: playerGameStatistics
+    get:
+      summary: GET endpoint to fetch game statistics record for a league player
+      operationId: fetch-game-statistics
+      tags:
+        - league-player-game-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+        - $ref: '#/components/parameters/page_number'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "200":
+          description: Game statistics records for a player are fetched and returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: playerGameStatistics
+    patch:
+      summary: PATCH endpoint to update/modify game statistics record for a league player
+      operationId: update-game-statistics
+      tags:
+        - league-player-game-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+      requestBody:
+        description: The content with the data to be updated on the record
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerGameStatisticsPatchDTO'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "202":
+          description: The patch request was accepted and completed successfully
+          content:
+            application/json:
+              schema:
+                type: playerGameStatistics
+    delete:
+      summary: DELETE endpoint to delete game statistics record for a league player
+      operationId: delete-game-statistics
+      tags:
+        - league-player-game-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "204":
+          description: The game statistics record for player was found and deleted successfully.
+  /league-player-misc-statistics:
+    summary: API endpoints to handle miscellaneous statistics details of all league players.
+    post:
+      summary: POST endpoint to create a miscellaneous statistics record for a league player
+      operationId: create-miscellaneous-statistics
+      tags:
+        - league-player-miscellaneous-statistics
+      requestBody:
+        description: The miscellaneous statistics record that is to be saved.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: playerMiscellaneousInformation
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "201":
+          description: miscellaneous statistics for player record is created successfully.
+          content:
+            application/json:
+              schema:
+                type: playerMiscellaneousInformation
+    get:
+      summary: GET endpoint to fetch miscellaneous statistics record for a league player
+      operationId: fetch-miscellaneous-statistics
+      tags:
+        - league-player-miscellaneous-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+        - $ref: '#/components/parameters/page_number'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "200":
+          description: Miscellaneous statistics records for a player are fetched and returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: playerMiscellaneousInformation
+    patch:
+      summary: PATCH endpoint to update/modify miscellaneous statistics record for a league player
+      operationId: update-miscellaneous-statistics
+      tags:
+        - league-player-miscellaneous-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+      requestBody:
+        description: The content with the data to be updated on the record
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerMiscellaneousInformationPatchDTO'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "202":
+          description: The patch request was accepted and completed successfully
+          content:
+            application/json:
+              schema:
+                type: playerMiscellaneousInformation
+    delete:
+      summary: DELETE endpoint to delete miscellaneous statistics record for a league player
+      operationId: delete-miscellaneous-statistics
+      tags:
+        - league-player-miscellaneous-statistics
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "204":
+          description: The miscellaneous statistics record for player was found and deleted successfully.
+  /league-player-gameweek-scores:
+    summary: API endpoints to handle final game week scores details of all league players.
+    post:
+      summary: POST endpoint to create a game week scores record for a league player
+      operationId: create-game-week-scores
+      tags:
+        - league-player-game-week-scores
+      requestBody:
+        description: The gameweek score record that is to be saved.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameWeekScoreDTO'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "201":
+          description: gameweek score record for player record is created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameWeekScoreDTO'
+    get:
+      summary: GET endpoint to fetch gameweek score record for a league player
+      operationId: fetch-game-week-scores
+      tags:
+        - league-player-game-week-scores
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+        - name: game_week
+          in: query
+          description: The game week for which the record needs to be fetched
+          required: false
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/page_number'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "200":
+          description: Game week score records for a player are fetched and returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameWeekScoreDTO'
+    delete:
+      summary: DELETE endpoint to delete game week score record for a league player
+      operationId: delete-game-week-scores
+      tags:
+        - league-player-game-week-scores
+      parameters:
+        - $ref: '#/components/parameters/record_id'
+        - $ref: '#/components/parameters/player_id'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "204":
+          description: The miscellaneous statistics record for player was found and deleted successfully.
 servers:
   - url: http://localhost:8080/api/fantasy/football/v1
     description: The base path for the API deployed in local
@@ -135,6 +508,14 @@ components:
               description: Spring ProblemDetail object
               url: https://docs.spring.io/spring-framework/reference/web/webflux/ann-rest-exceptions.html
   parameters:
+    page_number:
+      name: page_number
+      in: query
+      description: The page number to return if fetching all records
+      required: false
+      schema:
+        type: integer
+        format: int32
     team_name:
       name: team_name
       in: header
@@ -149,13 +530,29 @@ components:
       required: false
       schema:
         type: integer
-    team_id:
-      name: team_id
+    record_id:
+      name: record_id
       in: header
-      description: The record id of the team to fetch
+      description: The record id of the record to fetch
       required: false
       schema:
         type: string
+        format: uuid
+    player_code:
+      name: player_code
+      in: header
+      description: The unique player code
+      required: false
+      schema:
+        type: string
+    player_id:
+      name: player_id
+      in: header
+      description: The unique player UUID
+      required: false
+      schema:
+        type: string
+        format: uuid
   schemas:
     LeagueTeamPatchDto:
       type: object
@@ -212,3 +609,252 @@ components:
         pulseId:
           type: int
           format: int32
+    PlayerBasicInformationPatchDTO:
+      type: object
+      properties:
+        firstName:
+          type: string
+        secondName:
+          type: string
+        squadNumber:
+          type: integer
+          format: int32
+        status:
+          type: string
+        team:
+          type: string
+          format: uuid
+        webName:
+          type: string
+        playerFantasyStatistics:
+          type: string
+          format: uuid
+        playerGameStatistics:
+          type: string
+          format: uuid
+        playerMiscellaneousInformation:
+          type: string
+          format: uuid
+    PlayerFantasyStatisticsPatchDTO:
+      type: object
+      properties:
+        chanceOfPlayingNextRound:
+          type: integer
+          format: int32
+        chanceOfPlayingThisRound:
+          type: integer
+          format: int32
+        dreamTeamCount:
+          type: integer
+          format: int32
+        expectedPointsNext:
+          type: number
+          format: float
+        expectedPointsThis:
+          type: number
+          format: float
+        eventPoints:
+          type: integer
+          format: int32
+        isInDreamTeam:
+          type: boolean
+        form:
+          type: number
+          format: float
+        nowCost:
+          type: integer
+          format: int32
+        pointsPerGame:
+          type: number
+          format: float
+        selectedByPercent:
+          type: number
+          format: float
+        totalPoints:
+          type: integer
+          format: int32
+        transfersIn:
+          type: integer
+          format: int32
+        transfersOut:
+          type: integer
+          format: int32
+        valueForm:
+          type: number
+          format: float
+        valueSeason:
+          type: number
+          format: float
+        bonus:
+          type: integer
+          format: int32
+        bps:
+          type: integer
+          format: int32
+        expectedGoals:
+          type: number
+          format: float
+        expectedAssists:
+          type: number
+          format: float
+        expectedGoalInvolvements:
+          type: number
+          format: float
+        expectedGoalsConceded:
+          type: number
+          format: float
+        expectedGoalsPer90:
+          type: number
+          format: float
+        expectedAssistsPer90:
+          type: number
+          format: float
+        expectedGoalInvolvementsPer90:
+          type: number
+          format: float
+        expectedGoalsConcededPer90:
+          type: number
+          format: float
+    PlayerGameStatisticsPatchDTO:
+      type: object
+      properties:
+        minutes:
+          type: integer
+          format: int32
+        goalsScored:
+          type: integer
+          format: int32
+        assists:
+          type: integer
+          format: int32
+        cleanSheets:
+          type: integer
+          format: int32
+        goalsConceded:
+          type: integer
+          format: int32
+        ownGoals:
+          type: integer
+          format: int32
+        penaltiesSaved:
+          type: integer
+          format: int32
+        penaltiesMissed:
+          type: integer
+          format: int32
+        yellowCards:
+          type: integer
+          format: int32
+        redCards:
+          type: integer
+          format: int32
+        saves:
+          type: integer
+          format: int32
+        influence:
+          type: number
+          format: float
+        creativity:
+          type: number
+          format: float
+        threat:
+          type: number
+          format: float
+        starts:
+          type: integer
+          format: int32
+        totalPoints:
+          type: integer
+          format: int32
+        startsPer90:
+          type: number
+          format: float
+        cleanSheetsPer90:
+          type: number
+          format: float
+        savesPer90:
+          type: number
+          format: float
+        goalsConcededPer90:
+          type: number
+          format: float
+    PlayerMiscellaneousInformationPatchDTO:
+      type: object
+      properties:
+        news:
+          type: string
+        newsAdded:
+          type: string
+          format: date-time
+        ictIndex:
+          type: number
+          format: float
+        influenceRank:
+          type: integer
+          format: int32
+        influenceRankType:
+          type: integer
+          format: int32
+        creativityRank:
+          type: integer
+          format: int32
+        creativityRankType:
+          type: integer
+          format: int32
+        threatRank:
+          type: integer
+          format: int32
+        threatRankType:
+          type: integer
+          format: int32
+        ictIndexRank:
+          type: integer
+          format: int32
+        ictIndexRankType:
+          type: integer
+          format: int32
+        cornersAndIndirectFreeKicksOrder:
+          type: string
+        cornersAndIndirectFreeKicksText:
+          type: string
+        directFreeKicksOrder:
+          type: string
+        directFreeKicksText:
+          type: string
+        penaltiesOrder:
+          type: string
+        penaltiesText:
+          type: string
+        nowCostRank:
+          type: integer
+          format: int32
+        nowCostRankType:
+          type: integer
+          format: int32
+        formRank:
+          type: integer
+          format: int32
+        formRankType:
+          type: integer
+          format: int32
+        pointsPerGameRank:
+          type: integer
+          format: int32
+        pointsPerGameRankType:
+          type: integer
+          format: int32
+        selectedRank:
+          type: integer
+          format: int32
+        selectedRankType:
+          type: integer
+          format: int32
+    GameWeekScoreDTO:
+      type: object
+      properties:
+        gameWeekStatistics:
+          type: playerGameWeekStatistics
+        gameWeekBreakUp:
+          type: array
+          items:
+            type: playerGameWeekBreakup

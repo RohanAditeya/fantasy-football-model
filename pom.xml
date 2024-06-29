@@ -97,12 +97,22 @@
                             <typeMappings>
                                 leagueTeam=LeagueTeam,
                                 playerBasicInformation=PlayerBasicInformation,
-                                problemDetail=ProblemDetail
+                                problemDetail=ProblemDetail,
+                                playerFantasyStatistics=PlayerFantasyStatistics,
+                                playerGameStatistics=PlayerGameStatistics,
+                                playerMiscellaneousInformation=PlayerMiscellaneousInformation,
+                                playerGameWeekStatistics=PlayerGameWeekStatistics,
+                                playerGameWeekBreakup=PlayerGameWeekBreakup
                             </typeMappings>
                             <importMappings>
                                 LeagueTeam=com.fantasy.football.model.LeagueTeam,
                                 PlayerBasicInformation=com.fantasy.football.model.PlayerBasicInformation,
-                                ProblemDetail=org.springframework.http.ProblemDetail
+                                ProblemDetail=org.springframework.http.ProblemDetail,
+                                PlayerFantasyStatistics=com.fantasy.football.model.PlayerFantasyStatistics,
+                                PlayerGameStatistics=com.fantasy.football.model.PlayerGameStatistics,
+                                PlayerMiscellaneousInformation=com.fantasy.football.model.PlayerMiscellaneousInformation,
+                                PlayerGameWeekStatistics=com.fantasy.football.model.PlayerGameWeekStatistics,
+                                PlayerGameWeekBreakup=com.fantasy.football.model.PlayerGameWeekBreakup
                             </importMappings>
                         </configuration>
                     </execution>
