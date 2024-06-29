@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: Fantasy Football League API
-  summary: API to manage data stored in data store from the Fantasy Premier league public APIs
+  description: API to manage data stored in data store from the Fantasy Premier league public APIs
   contact:
     name: Rohan Aditeya
     email: rohan.aditeya@gmail.com
@@ -12,7 +12,7 @@ tags:
   - name: league-player
     description: Handle all CRUD operations for league player
 paths:
-  /league-team/create:
+  /league-team:
     summary: API endpoints to manage league team records.
     post:
       summary: POST endpoint to create new league team record
@@ -27,9 +27,58 @@ paths:
             schema:
               type: leagueTeam
       responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
         "201":
-          description: League team record is created successfully.
-  /league-player/create:
+          description: League team record is created successfully
+          content:
+            application/json:
+              schema:
+                type: leagueTeam
+    get:
+      summary: GET endpoint to fetch team record
+      operationId: fetch-league-team
+      tags:
+        - league-team
+      parameters:
+        - $ref: '#/components/parameters/team_name'
+        - $ref: '#/components/parameters/team_code'
+        - $ref: '#/components/parameters/team_id'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "200":
+          description: League team record is fetched and returned successfully
+          content:
+            application/json:
+              schema:
+                type: leagueTeam
+    patch:
+      summary: PATCH endpoint to modify/update record
+      operationId: update-league-team
+      tags:
+        - league-team
+      requestBody:
+        description: The body with data to be updated in the record
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeagueTeamPatchDto'
+      parameters:
+        - $ref: '#/components/parameters/team_name'
+        - $ref: '#/components/parameters/team_code'
+        - $ref: '#/components/parameters/team_id'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "202":
+          description: The patch request was accepted and completed successfully
+          content:
+            application/json:
+              schema:
+                type: leagueTeam
+  /league-player:
     summary: API endpoints to manage league player records.
     post:
       summary: POST endpoint to create new league player record
@@ -47,4 +96,96 @@ paths:
         "201":
           description: League player record is created successfully.
 servers:
-  - url: http://localhost:8080/fantasy/football/v1
+  - url: http://localhost:8080/api/fantasy/football/v1
+    description: The base path for the API deployed in local
+  - url: http://fantasy-football-web-api.domain.com/api/fantasy/football/v1
+    description: The base path for the API deployed in kube with the above configured ingress host
+components:
+  responses:
+    defaultResponse:
+      description: Default response for unhandled errors
+      content:
+        application/json:
+          schema:
+            type: problemDetail
+            externalDocs:
+              description: Spring ProblemDetail object
+              url: https://docs.spring.io/spring-framework/reference/web/webflux/ann-rest-exceptions.html
+  parameters:
+    team_name:
+      name: team_name
+      in: header
+      description: The name of the team to fetch
+      required: false
+      schema:
+        type: string
+    team_code:
+      name: team_code
+      in: header
+      description: The code of the team to fetch
+      required: false
+      schema:
+        type: integer
+    team_id:
+      name: team_id
+      in: header
+      description: The record id of the team to fetch
+      required: false
+      schema:
+        type: string
+  schemas:
+    LeagueTeamPatchDto:
+      type: object
+      properties:
+        draw:
+          type: integer
+          format: int32
+          minimum: 0
+        form:
+          type: number
+          format: float
+        loss:
+          type: integer
+          format: int32
+        played:
+          type: integer
+          format: int32
+        points:
+          type: integer
+          format: int32
+        position:
+          type: integer
+          format: int32
+        shortName:
+          type: string
+        strength:
+          type: integer
+          format: int32
+        teamDivision:
+          type: string
+        unavailable:
+          type: boolean
+        win:
+          type: integer
+          format: int32
+        strengthOverallHome:
+          type: integer
+          format: int32
+        strengthOverallAway:
+          type: integer
+          format: int32
+        strengthAttackHome:
+          type: integer
+          format: int32
+        strengthAttackAway:
+          type: integer
+          format: int32
+        strengthDefenceHome:
+          type: integer
+          format: int32
+        strengthDefenceAway:
+          type: integer
+          format: int32
+        pulseId:
+          type: int
+          format: int32
