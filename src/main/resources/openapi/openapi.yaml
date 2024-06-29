@@ -44,6 +44,13 @@ paths:
         - $ref: '#/components/parameters/team_name'
         - $ref: '#/components/parameters/team_code'
         - $ref: '#/components/parameters/team_id'
+        - name: page_number
+          in: query
+          description: The page number to return if fetching all records
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         default:
           $ref: '#/components/responses/defaultResponse'
@@ -52,7 +59,9 @@ paths:
           content:
             application/json:
               schema:
-                type: leagueTeam
+                type: array
+                items:
+                  type: leagueTeam
     patch:
       summary: PATCH endpoint to modify/update record
       operationId: update-league-team
@@ -78,6 +87,20 @@ paths:
             application/json:
               schema:
                 type: leagueTeam
+    delete:
+      summary: DELETE endpoint to delete a unique league team record
+      operationId: delete-league-team
+      tags:
+        - league-team
+      parameters:
+        - $ref: '#/components/parameters/team_name'
+        - $ref: '#/components/parameters/team_code'
+        - $ref: '#/components/parameters/team_id'
+      responses:
+        default:
+          $ref: '#/components/responses/defaultResponse'
+        "204":
+          description: The league team record was found and deleted successfully.
   /league-player:
     summary: API endpoints to manage league player records.
     post:
