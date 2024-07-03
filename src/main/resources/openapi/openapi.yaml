@@ -116,7 +116,16 @@ paths:
         content:
           application/json:
             schema:
-              type: playerBasicInformation
+              type: object
+              properties:
+                basicInfo:
+                  type: playerBasicInformation
+                fantasyStatistics:
+                  type: playerFantasyStatistics
+                gameStatistics:
+                  type: playerGameStatistics
+                miscellaneousInfo:
+                  type: playerMiscellaneousInformation
       responses:
         default:
           $ref: '#/components/responses/defaultResponse'
@@ -626,15 +635,6 @@ components:
           format: uuid
         webName:
           type: string
-        playerFantasyStatistics:
-          type: string
-          format: uuid
-        playerGameStatistics:
-          type: string
-          format: uuid
-        playerMiscellaneousInformation:
-          type: string
-          format: uuid
     PlayerFantasyStatisticsPatchDTO:
       type: object
       properties:
