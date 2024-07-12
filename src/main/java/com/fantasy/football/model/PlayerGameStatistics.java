@@ -12,6 +12,8 @@ import java.util.UUID;
 @Table(name = "PLYR_GAME_STCS")
 public class PlayerGameStatistics {
 
+    private PlayerGameStatistics() {}
+
     @PersistenceCreator
     public PlayerGameStatistics(UUID recordId, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Integer totalPoints, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90, long versionNumber) {
         this.recordId = recordId;

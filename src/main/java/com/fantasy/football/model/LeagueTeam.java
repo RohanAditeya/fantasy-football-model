@@ -18,6 +18,8 @@ import java.util.UUID;
 )
 public class LeagueTeam {
 
+    private LeagueTeam() {}
+
     public LeagueTeam(UUID recordId, String name, int code, int draw, Float form, int loss, int played, int points, int position, String shortName, int strength, String teamDivision, boolean unavailable, int win, int strengthOverallHome, int strengthOverallAway, int strengthAttackHome, int strengthAttackAway, int strengthDefenceHome, int strengthDefenceAway, int pulseId) {
         this.recordId = recordId;
         this.name = name;
@@ -298,6 +300,10 @@ public class LeagueTeam {
 
     public void setPulseId(@Positive int pulseId) {
         this.pulseId = pulseId;
+    }
+
+    public void setRecordId(UUID recordId) {
+        this.recordId = recordId;
     }
 
     public static class Builder {

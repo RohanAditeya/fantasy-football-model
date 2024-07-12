@@ -12,6 +12,8 @@ import java.util.UUID;
 @Table(name = "PLYR_GAME_WK_BK")
 public class PlayerGameWeekBreakup {
 
+	private PlayerGameWeekBreakup() {}
+
 	@PersistenceCreator
 	public PlayerGameWeekBreakup(UUID recordId, UUID gameWeek, String identifier, int points, int value, long versionNumber) {
 		this.recordId = recordId;

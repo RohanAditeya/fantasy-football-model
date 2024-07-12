@@ -11,6 +11,8 @@ import java.util.UUID;
 @Table(name = "PLYR_GAME_WK_STCS")
 public class PlayerGameWeekStatistics {
 
+	private PlayerGameWeekStatistics() {}
+
 	@PersistenceCreator
 	public PlayerGameWeekStatistics(UUID recordId, UUID playerId, int gameWeek, int minutes, int goalsScored, int assists, int cleanSheets, int goalsConceded, int ownGoals, int penaltiesSaved, int penaltiesMissed, int yellowCards, int redCards, int saves, int bonus, int bps, float influence, float creativity, float threat, float ictIndex, float starts, float expectedGoals, float expectedAssists, float expectedGoalInvolvements, float expectedGoalsConceded, float totalPoints, boolean inDreamTeam, long versionNumber) {
 		this.recordId = recordId;

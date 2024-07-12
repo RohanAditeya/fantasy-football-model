@@ -13,6 +13,8 @@ import java.util.UUID;
 @Table(name = "PLYR_MISC_INFO")
 public class PlayerMiscellaneousInformation {
 
+    private PlayerMiscellaneousInformation() {}
+
     public PlayerMiscellaneousInformation(UUID recordId, String news, OffsetDateTime newsAdded, Float ictIndex, Integer influenceRank, Integer influenceRankType, Integer creativityRank, Integer creativityRankType, Integer threatRank, Integer threatRankType, Integer ictIndexRank, Integer ictIndexRankType, String cornersAndIndirectFreeKicksOrder, String cornersAndIndirectFreeKicksText, String directFreeKicksOrder, String directFreeKicksText, String penaltiesOrder, String penaltiesText, Integer nowCostRank, Integer nowCostRankType, Integer formRank, Integer formRankType, Integer pointsPerGameRank, Integer pointsPerGameRankType, Integer selectedRank, Integer selectedRankType, long versionNumber) {
         this.recordId = recordId;
         this.news = news;

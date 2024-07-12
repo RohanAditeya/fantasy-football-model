@@ -13,6 +13,8 @@ import java.util.UUID;
 @Table(name = "PLYR_BSC_INFO")
 public class PlayerBasicInformation {
 
+    private PlayerBasicInformation() {}
+
     public PlayerBasicInformation(UUID recordId, Long code, String firstName, String secondName, Integer squadNumber, String status, UUID team, String webName, UUID playerFantasyStatistics, UUID playerGameStatistics, UUID playerMiscellaneousInformation) {
         this.recordId = recordId;
         this.code = code;
