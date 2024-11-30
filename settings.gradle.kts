@@ -6,8 +6,8 @@ pluginManagement {
         maven {
             url = uri("https://maven.pkg.github.com/RohanAditeya/another-framework")
             credentials {
-                username = providers.gradleProperty("artifactory.user") as String? ?: "user"
-                password = providers.gradleProperty("artifactory.password") as String? ?: "password"
+                username = providers.gradleProperty("artifactory.user").get()
+                password = providers.gradleProperty("artifactory.password").get()
             }
         }
     }
