@@ -17,6 +17,9 @@ java {
 }
 
 repositories {
+    google()
+    mavenLocal()
+    mavenCentral()
     maven {
         name = "github-packages"
         url = uri("https://maven.pkg.github.com/RohanAditeya/fantasy-football-model")
