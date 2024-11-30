@@ -24,8 +24,8 @@ repositories {
         name = "github-packages"
         url = uri("https://maven.pkg.github.com/RohanAditeya/fantasy-football-model")
         credentials {
-            username = project.findProperty("artifactory.user") as String? ?: "user"
-            password = project.findProperty("artifactory.password") as String? ?: "password"
+            username = providers.gradleProperty("artifactory.user").get()
+            password = providers.gradleProperty("artifactory.password").get()
         }
     }
 }
@@ -84,7 +84,8 @@ openApiGenerate {
             "useBeanValidation" to "true"
         )
     )
-    supportingFilesConstrainedTo.set(listOf())
+    apiFilesConstrainedTo.set(mutableListOf(""))
+    modelFilesConstrainedTo.set(mutableListOf(""))
 }
 
 tasks.compileJava {
@@ -115,15 +116,9 @@ publishing {
             name = "github-packages"
             url = uri("https://maven.pkg.github.com/RohanAditeya/fantasy-football-model")
             credentials {
-                username = project.findProperty("artifactory.user") as String? ?: "user"
-                password = project.findProperty("artifactory.password") as String? ?: "password"
+                username = providers.gradleProperty("artifactory.user").get()
+                password = providers.gradleProperty("artifactory.password").get()
             }
         }
-    }
-}
-
-release {
-    git {
-        requireBranch.set("")
     }
 }
