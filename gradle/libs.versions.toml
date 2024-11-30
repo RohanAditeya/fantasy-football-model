@@ -1,0 +1,13 @@
+[versions]
+anotherBootPluginVersion = "2.0.1-SNAPSHOT"
+swaggerParserVersion = "2.1.23"
+openapiGradlePluginVersion = "7.10.0"
+gradleReleasePluginVersion = "3.0.2"
+
+[libraries]
+swaggerParser = { group = "io.swagger.parser.v3", name = "swagger-parser", version.ref = "swaggerParserVersion" }
+
+[plugins]
+anotherBootPlugin = { id = "com.framework.another.boot", version.ref = "anotherBootPluginVersion" }
+openapiGradlePlugin = { id = "org.openapi.generator", version.ref = "openapiGradlePluginVersion" }
+gradleReleaePlugin = { id = "net.researchgate.release", version.ref = "gradleReleasePluginVersion" }

@@ -227,6 +227,10 @@ public class PlayerMiscellaneousInformation {
         return versionNumber;
     }
 
+    public void setRecordId(UUID recordId) {
+        this.recordId = recordId;
+    }
+
     public void setNews(String news) {
         this.news = news;
     }

@@ -211,6 +211,10 @@ public class PlayerGameStatistics {
         return versionNumber;
     }
 
+    public void setRecordId(UUID recordId) {
+        this.recordId = recordId;
+    }
+
     public void setMinutes(Integer minutes) {
         this.minutes = minutes;
     }

@@ -120,6 +120,10 @@ public class PlayerBasicInformation {
         return versionNumber;
     }
 
+    public void setRecordId(UUID recordId) {
+        this.recordId = recordId;
+    }
+
     public void setSquadNumber(@Positive Integer squadNumber) {
         this.squadNumber = squadNumber;
     }

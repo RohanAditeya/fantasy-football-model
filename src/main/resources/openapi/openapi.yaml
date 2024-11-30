@@ -53,6 +53,7 @@ paths:
         - $ref: '#/components/parameters/team_code'
         - $ref: '#/components/parameters/record_id'
         - $ref: '#/components/parameters/page_number'
+        - $ref: '#/components/parameters/page_size'
       responses:
         default:
           $ref: '#/components/responses/defaultResponse'
@@ -525,6 +526,16 @@ components:
       schema:
         type: integer
         format: int32
+        default: 1
+    page_size:
+      name: page_size
+      in: query
+      description: The number of records in a single page
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 10
     team_name:
       name: team_name
       in: header

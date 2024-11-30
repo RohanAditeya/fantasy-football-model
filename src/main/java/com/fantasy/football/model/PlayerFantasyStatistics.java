@@ -241,6 +241,10 @@ public class PlayerFantasyStatistics {
         return versionNumber;
     }
 
+    public void setRecordId(UUID recordId) {
+        this.recordId = recordId;
+    }
+
     public void setChanceOfPlayingNextRound(Integer chanceOfPlayingNextRound) {
         this.chanceOfPlayingNextRound = chanceOfPlayingNextRound;
     }
