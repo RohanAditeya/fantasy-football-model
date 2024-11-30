@@ -1,5 +1,5 @@
 [versions]
-anotherBootPluginVersion = "2.0.1"
+anotherBootPluginVersion = "2.0.2"
 swaggerParserVersion = "2.1.23"
 openapiGradlePluginVersion = "7.10.0"
 gradleReleasePluginVersion = "3.0.2"
