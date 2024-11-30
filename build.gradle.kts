@@ -16,6 +16,17 @@ java {
     withSourcesJar()
 }
 
+repositories {
+    maven {
+        name = "github-packages"
+        url = uri("https://maven.pkg.github.com/RohanAditeya/fantasy-football-model")
+        credentials {
+            username = project.findProperty("artifactory.user") as String? ?: "user"
+            password = project.findProperty("artifactory.password") as String? ?: "password"
+        }
+    }
+}
+
 dependencies {
     api("org.springframework.data:spring-data-r2dbc")
     implementation("com.framework.another.boot:another-boot-starter-webflux")
@@ -100,9 +111,6 @@ publishing {
         maven {
             name = "github-packages"
             url = uri("https://maven.pkg.github.com/RohanAditeya/fantasy-football-model")
-            authentication {
-                register(name = "basic-authentication", type = BasicAuthentication::class)
-            }
             credentials {
                 username = project.findProperty("artifactory.user") as String? ?: "user"
                 password = project.findProperty("artifactory.password") as String? ?: "password"
