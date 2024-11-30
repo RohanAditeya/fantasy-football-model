@@ -3,6 +3,10 @@ rootProject.name = "fantasy-football-model"
 pluginManagement {
 
     repositories {
+        gradlePluginPortal()
+        google()
+        mavenLocal()
+        mavenCentral()
         maven {
             url = uri("https://maven.pkg.github.com/RohanAditeya/another-framework")
             credentials {
