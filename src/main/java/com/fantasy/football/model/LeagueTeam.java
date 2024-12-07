@@ -1,26 +1,29 @@
 package com.fantasy.football.model;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.envers.Audited;
+import jakarta.validation.constraints.Size;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.relational.core.mapping.Column;
 
-@Entity
-@Audited
-@DynamicUpdate
+import java.util.UUID;
+
 @Table(
-        name = "LEAGUE_TEAM",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"SHRT_NAME"})}
+        name = "LEAGUE_TEAM"
 )
 public class LeagueTeam {
-    protected LeagueTeam () {}
 
-    private LeagueTeam(LeagueTeamPrimaryKey compositeKey, int draw, float form, int loss, int played, int points, int position, @NotNull String shortName, int strength, @NotNull String teamDivision, boolean unavailable, int win, int strengthOverallHome, int strengthOverallAway, int strengthAttackHome, int strengthAttackAway, int strengthDefenceHome, int strengthDefenceAway, int pulseId) {
-        this.compositeKey = compositeKey;
+    private LeagueTeam() {}
+
+    public LeagueTeam(UUID recordId, String name, int code, int draw, Float form, int loss, int played, int points, int position, String shortName, int strength, String teamDivision, boolean unavailable, int win, int strengthOverallHome, int strengthOverallAway, int strengthAttackHome, int strengthAttackAway, int strengthDefenceHome, int strengthDefenceAway, int pulseId) {
+        this.recordId = recordId;
+        this.name = name;
+        this.code = code;
         this.draw = draw;
         this.form = form;
         this.loss = loss;
@@ -41,18 +44,44 @@ public class LeagueTeam {
         this.pulseId = pulseId;
     }
 
-    @EmbeddedId
-    @GeneratedValue(generator = "leagueTeamKeyGenerator")
-    @GenericGenerator(
-            name = "leagueTeamKeyGenerator",
-            type = LeagueTeamPrimaryKeyGenerator.class
-    )
-    private LeagueTeamPrimaryKey compositeKey;
+    @PersistenceCreator
+    public LeagueTeam(UUID recordId, String name, int code, int draw, Float form, int loss, int played, int points, int position, String shortName, int strength, String teamDivision, boolean unavailable, int win, int strengthOverallHome, int strengthOverallAway, int strengthAttackHome, int strengthAttackAway, int strengthDefenceHome, int strengthDefenceAway, int pulseId, long versionNumber) {
+        this.recordId = recordId;
+        this.name = name;
+        this.code = code;
+        this.draw = draw;
+        this.form = form;
+        this.loss = loss;
+        this.played = played;
+        this.points = points;
+        this.position = position;
+        this.shortName = shortName;
+        this.strength = strength;
+        this.teamDivision = teamDivision;
+        this.unavailable = unavailable;
+        this.win = win;
+        this.strengthOverallHome = strengthOverallHome;
+        this.strengthOverallAway = strengthOverallAway;
+        this.strengthAttackHome = strengthAttackHome;
+        this.strengthAttackAway = strengthAttackAway;
+        this.strengthDefenceHome = strengthDefenceHome;
+        this.strengthDefenceAway = strengthDefenceAway;
+        this.pulseId = pulseId;
+        this.versionNumber = versionNumber;
+    }
+
+    @Id
+    private UUID recordId;
+    @NotNull
+    @Size(max = 30)
+    private String name;
+    @Positive
+    private int code;
     @PositiveOrZero
     private int draw;
     @Positive
     @Digits(integer = 5, fraction = 2)
-    private float form;
+    private Float form;
     @PositiveOrZero
     private int loss;
     @PositiveOrZero
@@ -62,82 +91,94 @@ public class LeagueTeam {
     @Positive
     private int position;
     @NotNull
-    @Column(name = "SHRT_NAME", length = 3)
+    @Column(value = "SHRT_NAME")
     private String shortName;
     @Positive
-    @Column(name = "STRGTH")
+    @Column(value = "STRGTH")
     private int strength;
     @NotNull
-    @Column(name = "TEAM_DIV", length = 10)
+    @Column(value = "TEAM_DIV")
     private String teamDivision;
-    @Column(name = "UN_AVLBL")
+    @Column(value = "UN_AVLBL")
     private boolean unavailable;
     @PositiveOrZero
     private int win;
     @Positive
-    @Column(name = "STRGTH_OVR_HOME")
+    @Column(value = "STRGTH_OVR_HOME")
     private int strengthOverallHome;
     @Positive
-    @Column(name = "STRGTH_OVR_AWAY")
+    @Column(value = "STRGTH_OVR_AWAY")
     private int strengthOverallAway;
     @Positive
-    @Column(name = "STRGTH_ATT_HOME")
+    @Column(value = "STRGTH_ATT_HOME")
     private int strengthAttackHome;
     @Positive
-    @Column(name = "STRGTH_ATT_AWAY")
+    @Column(value = "STRGTH_ATT_AWAY")
     private int strengthAttackAway;
     @Positive
-    @Column(name = "STRGTH_DEF_HOME")
+    @Column(value = "STRGTH_DEF_HOME")
     private int strengthDefenceHome;
     @Positive
-    @Column(name = "STRGTH_DEF_AWAY")
+    @Column(value = "STRGTH_DEF_AWAY")
     private int strengthDefenceAway;
     @Positive
-    @Column(name = "PULSE_ID")
+    @Column(value = "PULSE_ID")
     private int pulseId;
-
     @Version
     private long versionNumber;
 
-    public LeagueTeamPrimaryKey getCompositeKey() {
-        return compositeKey;
+    public UUID getRecordId() {
+        return recordId;
     }
 
+    public @NotNull @Size(max = 30) String getName() {
+        return name;
+    }
+
+    @Positive
+    public int getCode() {
+        return code;
+    }
+
+    @PositiveOrZero
     public int getDraw() {
         return draw;
     }
 
-    public float getForm() {
+    public @Positive @Digits(integer = 5, fraction = 2) Float getForm() {
         return form;
     }
 
+    @PositiveOrZero
     public int getLoss() {
         return loss;
     }
 
+    @PositiveOrZero
     public int getPlayed() {
         return played;
     }
 
+    @PositiveOrZero
     public int getPoints() {
         return points;
     }
 
+    @Positive
     public int getPosition() {
         return position;
     }
 
-    @NotNull
-    public String getShortName() {
+    public @NotNull String getShortName() {
         return shortName;
     }
 
+    @Positive
     public int getStrength() {
         return strength;
     }
 
-    @NotNull
-    public String getTeamDivision() {
+    public @NotNull String getTeamDivision() {
         return teamDivision;
     }
 
@@ -145,34 +186,42 @@ public class LeagueTeam {
         return unavailable;
     }
 
+    @PositiveOrZero
     public int getWin() {
         return win;
     }
 
+    @Positive
     public int getStrengthOverallHome() {
         return strengthOverallHome;
     }
 
+    @Positive
     public int getStrengthOverallAway() {
         return strengthOverallAway;
     }
 
+    @Positive
     public int getStrengthAttackHome() {
         return strengthAttackHome;
     }
 
+    @Positive
     public int getStrengthAttackAway() {
         return strengthAttackAway;
     }
 
+    @Positive
     public int getStrengthDefenceHome() {
         return strengthDefenceHome;
     }
 
+    @Positive
     public int getStrengthDefenceAway() {
         return strengthDefenceAway;
     }
 
+    @Positive
     public int getPulseId() {
         return pulseId;
     }
@@ -181,39 +230,39 @@ public class LeagueTeam {
         return versionNumber;
     }
 
-    public void setDraw(int draw) {
+    public void setDraw(@PositiveOrZero int draw) {
         this.draw = draw;
     }
 
-    public void setForm(float form) {
+    public void setForm(@Positive @Digits(integer = 5, fraction = 2) Float form) {
         this.form = form;
     }
 
-    public void setLoss(int loss) {
+    public void setLoss(@PositiveOrZero int loss) {
         this.loss = loss;
     }
 
-    public void setPlayed(int played) {
+    public void setPlayed(@PositiveOrZero int played) {
         this.played = played;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(@PositiveOrZero int points) {
         this.points = points;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(@Positive int position) {
         this.position = position;
     }
 
-    public void setShortName(String shortName) {
+    public void setShortName(@NotNull String shortName) {
         this.shortName = shortName;
     }
 
-    public void setStrength(int strength) {
+    public void setStrength(@Positive int strength) {
         this.strength = strength;
     }
 
-    public void setTeamDivision(String teamDivision) {
+    public void setTeamDivision(@NotNull String teamDivision) {
         this.teamDivision = teamDivision;
     }
 
@@ -221,42 +270,48 @@ public class LeagueTeam {
         this.unavailable = unavailable;
     }
 
-    public void setWin(int win) {
+    public void setWin(@PositiveOrZero int win) {
         this.win = win;
     }
 
-    public void setStrengthOverallHome(int strengthOverallHome) {
+    public void setStrengthOverallHome(@Positive int strengthOverallHome) {
         this.strengthOverallHome = strengthOverallHome;
     }
 
-    public void setStrengthOverallAway(int strengthOverallAway) {
+    public void setStrengthOverallAway(@Positive int strengthOverallAway) {
         this.strengthOverallAway = strengthOverallAway;
     }
 
-    public void setStrengthAttackHome(int strengthAttackHome) {
+    public void setStrengthAttackHome(@Positive int strengthAttackHome) {
         this.strengthAttackHome = strengthAttackHome;
     }
 
-    public void setStrengthAttackAway(int strengthAttackAway) {
+    public void setStrengthAttackAway(@Positive int strengthAttackAway) {
         this.strengthAttackAway = strengthAttackAway;
     }
 
-    public void setStrengthDefenceHome(int strengthDefenceHome) {
+    public void setStrengthDefenceHome(@Positive int strengthDefenceHome) {
         this.strengthDefenceHome = strengthDefenceHome;
     }
 
-    public void setStrengthDefenceAway(int strengthDefenceAway) {
+    public void setStrengthDefenceAway(@Positive int strengthDefenceAway) {
         this.strengthDefenceAway = strengthDefenceAway;
     }
 
-    public void setPulseId(int pulseId) {
+    public void setPulseId(@Positive int pulseId) {
         this.pulseId = pulseId;
     }
 
+    public void setRecordId(UUID recordId) {
+        this.recordId = recordId;
+    }
+
     public static class Builder {
-        private LeagueTeamPrimaryKey compositeKey;
+        private UUID recordId;
+        private String name;
+        private int code;
         private int draw;
-        private float form;
+        private Float form;
         private int loss;
         private int played;
         private int points;
@@ -274,106 +329,113 @@ public class LeagueTeam {
         private int strengthDefenceAway;
         private int pulseId;
 
-        public Builder compositeKey(LeagueTeamPrimaryKey compositeKey) {
-            this.compositeKey = compositeKey;
+        public Builder recordId (UUID recordId) {
+            this.recordId = recordId;
             return this;
         }
 
-        public Builder draw(int draw) {
+        public Builder name (String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder code (int code) {
+            this.code = code;
+            return this;
+        }
+
+        public Builder draw (int draw) {
             this.draw = draw;
             return this;
         }
 
-        public Builder form(float form) {
+        public Builder form (Float form) {
             this.form = form;
             return this;
         }
 
-        public Builder loss(int loss) {
+        public Builder loss (int loss) {
             this.loss = loss;
             return this;
         }
 
-        public Builder played(int played) {
+        public Builder played (int played) {
             this.played = played;
             return this;
         }
 
-        public Builder points(int points) {
+        public Builder points (int points) {
             this.points = points;
             return this;
         }
 
-        public Builder position(int position) {
+        public Builder position (int position) {
             this.position = position;
             return this;
         }
 
-        public Builder shortName(String shortName) {
+        public Builder shortName (String shortName) {
             this.shortName = shortName;
             return this;
         }
 
-        public Builder strength(int strength) {
+        public Builder strength (int strength) {
             this.strength = strength;
             return this;
         }
 
-        public Builder teamDivision(String teamDivision) {
+        public Builder recordId (String teamDivision) {
             this.teamDivision = teamDivision;
             return this;
         }
 
-        public Builder unavailable(boolean unavailable) {
+        public Builder unavailable (boolean unavailable) {
             this.unavailable = unavailable;
             return this;
         }
 
-        public Builder win(int win) {
+        public Builder win (int win) {
             this.win = win;
             return this;
         }
 
-        public Builder strengthOverallHome(int strengthOverallHome) {
+        public Builder strengthOverallHome (int strengthOverallHome) {
             this.strengthOverallHome = strengthOverallHome;
             return this;
         }
 
-        public Builder strengthOverallAway(int strengthOverallAway) {
+        public Builder strengthOverallAway (int strengthOverallAway) {
             this.strengthOverallAway = strengthOverallAway;
             return this;
         }
 
-        public Builder strengthAttackHome(int strengthAttackHome) {
+        public Builder strengthAttackHome (int strengthAttackHome) {
             this.strengthAttackHome = strengthAttackHome;
             return this;
         }
 
-        public Builder strengthAttackAway(int strengthAttackAway) {
+        public Builder strengthAttackAway (int strengthAttackAway) {
             this.strengthAttackAway = strengthAttackAway;
             return this;
         }
 
-        public Builder strengthDefenceHome(int strengthDefenceHome) {
+        public Builder strengthDefenceHome (int strengthDefenceHome) {
             this.strengthDefenceHome = strengthDefenceHome;
             return this;
         }
 
-        public Builder strengthDefenceAway(int strengthDefenceAway) {
+        public Builder strengthDefenceAway (int strengthDefenceAway) {
             this.strengthDefenceAway = strengthDefenceAway;
             return this;
         }
 
-        public Builder pulseId(int pulseId) {
+        public Builder pulseId (int pulseId) {
             this.pulseId = pulseId;
             return this;
         }
-        
+
         public LeagueTeam build () {
-            return new LeagueTeam(
-                    compositeKey, draw, form, loss, played, points, position, shortName, strength, teamDivision, unavailable, win, strengthOverallHome
-                    , strengthOverallAway, strengthAttackHome, strengthAttackAway, strengthDefenceHome, strengthDefenceAway, pulseId
-            );
+            return new LeagueTeam(recordId, name, code, draw, form, loss, played, points, position, shortName, strength, teamDivision, unavailable, win, strengthOverallHome, strengthOverallAway, strengthAttackHome, strengthAttackAway, strengthDefenceHome, strengthDefenceAway, pulseId);
         }
     }
 }

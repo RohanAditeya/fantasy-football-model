@@ -1,21 +1,21 @@
 package com.fantasy.football.model;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
-@Audited
-@Entity
-@DynamicUpdate
 @Table(name = "PLYR_GAME_STCS")
 public class PlayerGameStatistics {
 
-    protected PlayerGameStatistics () {}
+    private PlayerGameStatistics() {}
 
-    private PlayerGameStatistics(UUID recordId, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
+    @PersistenceCreator
+    public PlayerGameStatistics(UUID recordId, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Integer totalPoints, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90, long versionNumber) {
         this.recordId = recordId;
         this.minutes = minutes;
         this.goalsScored = goalsScored;
@@ -32,6 +32,32 @@ public class PlayerGameStatistics {
         this.creativity = creativity;
         this.threat = threat;
         this.starts = starts;
+        this.totalPoints = totalPoints;
+        this.startsPer90 = startsPer90;
+        this.cleanSheetsPer90 = cleanSheetsPer90;
+        this.savesPer90 = savesPer90;
+        this.goalsConcededPer90 = goalsConcededPer90;
+        this.versionNumber = versionNumber;
+    }
+
+    public PlayerGameStatistics(UUID recordId, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Float influence, Float creativity, Float threat, Integer starts, Integer totalPoints, Float startsPer90, Float cleanSheetsPer90, Float savesPer90, Float goalsConcededPer90) {
+        this.recordId = recordId;
+        this.minutes = minutes;
+        this.goalsScored = goalsScored;
+        this.assists = assists;
+        this.cleanSheets = cleanSheets;
+        this.goalsConceded = goalsConceded;
+        this.ownGoals = ownGoals;
+        this.penaltiesSaved = penaltiesSaved;
+        this.penaltiesMissed = penaltiesMissed;
+        this.yellowCards = yellowCards;
+        this.redCards = redCards;
+        this.saves = saves;
+        this.influence = influence;
+        this.creativity = creativity;
+        this.threat = threat;
+        this.starts = starts;
+        this.totalPoints = totalPoints;
         this.startsPer90 = startsPer90;
         this.cleanSheetsPer90 = cleanSheetsPer90;
         this.savesPer90 = savesPer90;
@@ -39,37 +65,36 @@ public class PlayerGameStatistics {
     }
 
     @Id
-    @GeneratedValue
     private UUID recordId;
     @PositiveOrZero
-    @Column(name = "MINS")
+    @Column(value = "MINS")
     private Integer minutes;
     @PositiveOrZero
-    @Column(name = "GOALS_SCRD")
+    @Column(value = "GOALS_SCRD")
     private Integer goalsScored;
     @PositiveOrZero
-    @Column(name = "ASSTS")
+    @Column(value = "ASSTS")
     private Integer assists;
     @PositiveOrZero
-    @Column(name = "CLEAN_SHTS")
+    @Column(value = "CLEAN_SHTS")
     private Integer cleanSheets;
     @PositiveOrZero
-    @Column(name = "GOALS_CNCDED")
+    @Column(value = "GOALS_CNCDED")
     private Integer goalsConceded;
     @PositiveOrZero
-    @Column(name = "OWN_GOALS")
+    @Column(value = "OWN_GOALS")
     private Integer ownGoals;
     @PositiveOrZero
-    @Column(name = "PEN_SAVED")
+    @Column(value = "PEN_SAVED")
     private Integer penaltiesSaved;
     @PositiveOrZero
-    @Column(name = "PEN_MISSED")
+    @Column(value = "PEN_MISSED")
     private Integer penaltiesMissed;
     @PositiveOrZero
-    @Column(name = "YELL_CARDS")
+    @Column(value = "YELL_CARDS")
     private Integer yellowCards;
     @PositiveOrZero
-    @Column(name = "RED_CARDS")
+    @Column(value = "RED_CARDS")
     private Integer redCards;
     @PositiveOrZero
     private Integer saves;
@@ -82,16 +107,18 @@ public class PlayerGameStatistics {
     @PositiveOrZero
     private Integer starts;
     @PositiveOrZero
-    @Column(name = "STARTS_90")
+    private Integer totalPoints;
+    @PositiveOrZero
+    @Column(value = "STARTS_90")
     private Float startsPer90;
     @PositiveOrZero
-    @Column(name = "CLEAN_SHTS_90")
+    @Column(value = "CLEAN_SHTS_90")
     private Float cleanSheetsPer90;
     @PositiveOrZero
-    @Column(name = "SAVES_90")
+    @Column(value = "SAVES_90")
     private Float savesPer90;
     @PositiveOrZero
-    @Column(name = "GOALS_CNCDED_90")
+    @Column(value = "GOALS_CNCDED_90")
     private Float goalsConcededPer90;
     @Version
     private long versionNumber;
@@ -159,6 +186,10 @@ public class PlayerGameStatistics {
     public Integer getStarts() {
         return starts;
     }
+    
+    public Integer getTotalPoints() {
+        return totalPoints;
+    }
 
     public Float getStartsPer90() {
         return startsPer90;
@@ -178,6 +209,10 @@ public class PlayerGameStatistics {
 
     public long getVersionNumber() {
         return versionNumber;
+    }
+
+    public void setRecordId(UUID recordId) {
+        this.recordId = recordId;
     }
 
     public void setMinutes(Integer minutes) {
@@ -239,6 +274,10 @@ public class PlayerGameStatistics {
     public void setStarts(Integer starts) {
         this.starts = starts;
     }
+    
+    public void setTotalPoints(Integer totalPoints) {
+        this.totalPoints = totalPoints;
+    }
 
     public void setStartsPer90(Float startsPer90) {
         this.startsPer90 = startsPer90;
@@ -273,6 +312,7 @@ public class PlayerGameStatistics {
         private Float creativity;
         private Float threat;
         private Integer starts;
+        private Integer totalPoints;
         private Float startsPer90;
         private Float cleanSheetsPer90;
         private Float savesPer90;
@@ -358,6 +398,11 @@ public class PlayerGameStatistics {
             return this;
         }
 
+        public Builder totalPoints(Integer totalPoints) {
+            this.totalPoints = totalPoints;
+            return this;
+        }
+
         public Builder startsPer90(Float startsPer90) {
             this.startsPer90 = startsPer90;
             return this;
@@ -379,7 +424,7 @@ public class PlayerGameStatistics {
         }
 
         public PlayerGameStatistics build () {
-            return new PlayerGameStatistics(this.recordId, this.minutes, this.goalsScored, this.assists, this.cleanSheets, this.goalsConceded, this.ownGoals, this.penaltiesSaved, this.penaltiesMissed, this.yellowCards, this.redCards, this.saves, this.influence, this.creativity, this.threat, this.starts, this.startsPer90, this.cleanSheetsPer90, this.savesPer90, this.goalsConcededPer90);
+            return new PlayerGameStatistics(this.recordId, this.minutes, this.goalsScored, this.assists, this.cleanSheets, this.goalsConceded, this.ownGoals, this.penaltiesSaved, this.penaltiesMissed, this.yellowCards, this.redCards, this.saves, this.influence, this.creativity, this.threat, this.starts, this.totalPoints, this.startsPer90, this.cleanSheetsPer90, this.savesPer90, this.goalsConcededPer90);
         }
     }
 }
