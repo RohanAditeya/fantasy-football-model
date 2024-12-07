@@ -1,3 +1,5 @@
+val mockitoAgent = configurations.create("mockitoAgent")
+
 plugins {
     `java-library`
     alias(libs.plugins.anotherBootPlugin)
@@ -14,6 +16,11 @@ java {
     }
     withJavadocJar()
     withSourcesJar()
+}
+
+tasks.test {
+    useJUnitPlatform()
+    jvmArgs("-javaagent:${mockitoAgent.asPath}")
 }
 
 repositories {
@@ -34,10 +41,11 @@ dependencies {
     api("org.springframework.data:spring-data-r2dbc")
     implementation("com.framework.another.boot:another-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-autoconfigure-processor")
-    implementation(libs.swaggerParser)
+    api(libs.swaggerParser)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.r2dbc:r2dbc-h2")
+    testRuntimeOnly("io.r2dbc:r2dbc-h2")
     testImplementation("io.projectreactor:reactor-test")
+    mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
 }
 
 openApiGenerate {
@@ -90,6 +98,7 @@ openApiGenerate {
 
 tasks.compileJava {
     dependsOn(tasks.openApiGenerate)
+    options.compilerArgs.addLast("-parameters") // Added for fixing test cases execution look at problem here https://stackoverflow.com/questions/77427865/missing-parameter-name-in-mongodb-repository-causing-mappingexception
 }
 
 tasks.processResources {
