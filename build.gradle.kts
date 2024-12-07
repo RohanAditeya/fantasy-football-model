@@ -113,6 +113,10 @@ tasks.processTestResources {
     dependsOn(tasks.openApiGenerate)
 }
 
+tasks.beforeReleaseBuild {
+    dependsOn(tasks.publish)
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven-publish") {
