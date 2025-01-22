@@ -128,7 +128,7 @@ public class PlayerGameWeekStatistics {
 		return recordId;
 	}
 
-	public UUID getPlayerCode() {
+	public UUID getPlayerId() {
 		return playerId;
 	}
 
