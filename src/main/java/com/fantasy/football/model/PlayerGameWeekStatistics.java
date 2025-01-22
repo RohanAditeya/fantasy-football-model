@@ -14,7 +14,7 @@ public class PlayerGameWeekStatistics {
 	private PlayerGameWeekStatistics() {}
 
 	@PersistenceCreator
-	public PlayerGameWeekStatistics(UUID recordId, UUID playerId, int gameWeek, int minutes, int goalsScored, int assists, int cleanSheets, int goalsConceded, int ownGoals, int penaltiesSaved, int penaltiesMissed, int yellowCards, int redCards, int saves, int bonus, int bps, float influence, float creativity, float threat, float ictIndex, float starts, float expectedGoals, float expectedAssists, float expectedGoalInvolvements, float expectedGoalsConceded, float totalPoints, boolean inDreamTeam, long versionNumber) {
+	public PlayerGameWeekStatistics(UUID recordId, UUID playerId, Integer gameWeek, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Integer bonus, Integer bps, Float influence, Float creativity, Float threat, Float ictIndex, Float starts, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float totalPoints, Boolean inDreamTeam, long versionNumber) {
 		this.recordId = recordId;
 		this.playerId = playerId;
 		this.gameWeek = gameWeek;
@@ -45,7 +45,7 @@ public class PlayerGameWeekStatistics {
 		this.versionNumber = versionNumber;
 	}
 
-	public PlayerGameWeekStatistics(UUID recordId, UUID playerId, int gameWeek, int minutes, int goalsScored, int assists, int cleanSheets, int goalsConceded, int ownGoals, int penaltiesSaved, int penaltiesMissed, int yellowCards, int redCards, int saves, int bonus, int bps, float influence, float creativity, float threat, float ictIndex, float starts, float expectedGoals, float expectedAssists, float expectedGoalInvolvements, float expectedGoalsConceded, float totalPoints, boolean inDreamTeam) {
+	public PlayerGameWeekStatistics(UUID recordId, UUID playerId, Integer gameWeek, Integer minutes, Integer goalsScored, Integer assists, Integer cleanSheets, Integer goalsConceded, Integer ownGoals, Integer penaltiesSaved, Integer penaltiesMissed, Integer yellowCards, Integer redCards, Integer saves, Integer bonus, Integer bps, Float influence, Float creativity, Float threat, Float ictIndex, Float starts, Float expectedGoals, Float expectedAssists, Float expectedGoalInvolvements, Float expectedGoalsConceded, Float totalPoints, Boolean inDreamTeam) {
 		this.recordId = recordId;
 		this.playerId = playerId;
 		this.gameWeek = gameWeek;
@@ -80,47 +80,47 @@ public class PlayerGameWeekStatistics {
 	@Column(value = "PLYR_ID")
 	private UUID playerId;
 	@Column(value = "GAME_WK")
-	private int gameWeek;
+	private Integer gameWeek;
 	@Column(value = "MINS")
-	private int minutes;
+	private Integer minutes;
 	@Column(value = "GOALS_SCRD")
-	private int goalsScored;
+	private Integer goalsScored;
 	@Column(value = "ASSTS")
-	private int assists;
+	private Integer assists;
 	@Column(value = "CLEAN_SHTS")
-	private int cleanSheets;
+	private Integer cleanSheets;
 	@Column(value = "GOALS_CNCDED")
-	private int goalsConceded;
+	private Integer goalsConceded;
 	@Column(value = "OWN_GOALS")
-	private int ownGoals;
+	private Integer ownGoals;
 	@Column(value = "PEN_SAVED")
-	private int penaltiesSaved;
+	private Integer penaltiesSaved;
 	@Column(value = "PEN_MISSED")
-	private int penaltiesMissed;
+	private Integer penaltiesMissed;
 	@Column(value = "YELL_CARDS")
-	private int yellowCards;
+	private Integer yellowCards;
 	@Column(value = "RED_CARDS")
-	private int redCards;
-	private int saves;
-	private int bonus;
-	private int bps;
-	private float influence;
-	private float creativity;
-	private float threat;
+	private Integer redCards;
+	private Integer saves;
+	private Integer bonus;
+	private Integer bps;
+	private Float influence;
+	private Float creativity;
+	private Float threat;
 	@Column(value = "ICT_INDX")
-	private float ictIndex;
-	private float starts;
+	private Float ictIndex;
+	private Float starts;
 	@Column(value = "EXP_GOALS")
-	private float expectedGoals;
+	private Float expectedGoals;
 	@Column(value = "EXP_ASSTS")
-	private float expectedAssists;
+	private Float expectedAssists;
 	@Column(value = "EXP_GOAL_INVLMTS")
-	private float expectedGoalInvolvements;
+	private Float expectedGoalInvolvements;
 	@Column(value = "EXP_GOALS_CNCDED")
-	private float expectedGoalsConceded;
-	private float totalPoints;
+	private Float expectedGoalsConceded;
+	private Float totalPoints;
 	@Column(value = "IN_DREAM_TM")
-	private boolean inDreamTeam;
+	private Boolean inDreamTeam;
 	@Version
 	private long versionNumber;
 
@@ -132,103 +132,103 @@ public class PlayerGameWeekStatistics {
 		return playerId;
 	}
 
-	public int getGameWeek() {
+	public Integer getGameWeek() {
 		return gameWeek;
 	}
 
-	public int getMinutes() {
+	public Integer getMinutes() {
 		return minutes;
 	}
 
-	public int getGoalsScored() {
+	public Integer getGoalsScored() {
 		return goalsScored;
 	}
 
-	public int getAssists() {
+	public Integer getAssists() {
 		return assists;
 	}
 
-	public int getCleanSheets() {
+	public Integer getCleanSheets() {
 		return cleanSheets;
 	}
 
-	public int getGoalsConceded() {
+	public Integer getGoalsConceded() {
 		return goalsConceded;
 	}
 
-	public int getOwnGoals() {
+	public Integer getOwnGoals() {
 		return ownGoals;
 	}
 
-	public int getPenaltiesSaved() {
+	public Integer getPenaltiesSaved() {
 		return penaltiesSaved;
 	}
 
-	public int getPenaltiesMissed() {
+	public Integer getPenaltiesMissed() {
 		return penaltiesMissed;
 	}
 
-	public int getYellowCards() {
+	public Integer getYellowCards() {
 		return yellowCards;
 	}
 
-	public int getRedCards() {
+	public Integer getRedCards() {
 		return redCards;
 	}
 
-	public int getSaves() {
+	public Integer getSaves() {
 		return saves;
 	}
 
-	public int getBonus() {
+	public Integer getBonus() {
 		return bonus;
 	}
 
-	public int getBps() {
+	public Integer getBps() {
 		return bps;
 	}
 
-	public float getInfluence() {
+	public Float getInfluence() {
 		return influence;
 	}
 
-	public float getCreativity() {
+	public Float getCreativity() {
 		return creativity;
 	}
 
-	public float getThreat() {
+	public Float getThreat() {
 		return threat;
 	}
 
-	public float getIctIndex() {
+	public Float getIctIndex() {
 		return ictIndex;
 	}
 
-	public float getStarts() {
+	public Float getStarts() {
 		return starts;
 	}
 
-	public float getExpectedGoals() {
+	public Float getExpectedGoals() {
 		return expectedGoals;
 	}
 
-	public float getExpectedAssists() {
+	public Float getExpectedAssists() {
 		return expectedAssists;
 	}
 
-	public float getExpectedGoalInvolvements() {
+	public Float getExpectedGoalInvolvements() {
 		return expectedGoalInvolvements;
 	}
 
-	public float getExpectedGoalsConceded() {
+	public Float getExpectedGoalsConceded() {
 		return expectedGoalsConceded;
 	}
 
-	public float getTotalPoints() {
+	public Float getTotalPoints() {
 		return totalPoints;
 	}
 
-	public boolean isInDreamTeam() {
+	public Boolean isInDreamTeam() {
 		return inDreamTeam;
 	}
 
@@ -239,31 +239,31 @@ public class PlayerGameWeekStatistics {
 	public static class Builder {
 		private UUID recordId;
 		private UUID playerId;
-		private int gameWeek;
-		private int minutes;
-		private int goalsScored;
-		private int assists;
-		private int cleanSheets;
-		private int goalsConceded;
-		private int ownGoals;
-		private int penaltiesSaved;
-		private int penaltiesMissed;
-		private int yellowCards;
-		private int redCards;
-		private int saves;
-		private int bonus;
-		private int bps;
-		private float influence;
-		private float creativity;
-		private float threat;
-		private float ictIndex;
-		private float starts;
-		private float expectedGoals;
-		private float expectedAssists;
-		private float expectedGoalInvolvements;
-		private float expectedGoalsConceded;
-		private float totalPoints;
-		private boolean inDreamTeam;
+		private Integer gameWeek;
+		private Integer minutes;
+		private Integer goalsScored;
+		private Integer assists;
+		private Integer cleanSheets;
+		private Integer goalsConceded;
+		private Integer ownGoals;
+		private Integer penaltiesSaved;
+		private Integer penaltiesMissed;
+		private Integer yellowCards;
+		private Integer redCards;
+		private Integer saves;
+		private Integer bonus;
+		private Integer bps;
+		private Float influence;
+		private Float creativity;
+		private Float threat;
+		private Float ictIndex;
+		private Float starts;
+		private Float expectedGoals;
+		private Float expectedAssists;
+		private Float expectedGoalInvolvements;
+		private Float expectedGoalsConceded;
+		private Float totalPoints;
+		private Boolean inDreamTeam;
 
 		public Builder recordId (UUID recordId) {
 			this.recordId = recordId;
@@ -275,127 +275,127 @@ public class PlayerGameWeekStatistics {
 			return this;
 		}
 
-		public Builder gameWeek (int gameWeek) {
+		public Builder gameWeek (Integer gameWeek) {
 			this.gameWeek = gameWeek;
 			return this;
 		}
 
-		public Builder minutes (int minutes) {
+		public Builder minutes (Integer minutes) {
 			this.minutes = minutes;
 			return this;
 		}
 
-		public Builder goalsScored (int goalsScored) {
+		public Builder goalsScored (Integer goalsScored) {
 			this.goalsScored = goalsScored;
 			return this;
 		}
 
-		public Builder assists (int assists) {
+		public Builder assists (Integer assists) {
 			this.assists = assists;
 			return this;
 		}
 
-		public Builder cleanSheets (int cleanSheets) {
+		public Builder cleanSheets (Integer cleanSheets) {
 			this.cleanSheets = cleanSheets;
 			return this;
 		}
 
-		public Builder goalsConceded (int goalsConceded) {
+		public Builder goalsConceded (Integer goalsConceded) {
 			this.goalsConceded = goalsConceded;
 			return this;
 		}
 
-		public Builder ownGoals (int ownGoals) {
+		public Builder ownGoals (Integer ownGoals) {
 			this.ownGoals = ownGoals;
 			return this;
 		}
 
-		public Builder penaltiesSaved (int penaltiesSaved) {
+		public Builder penaltiesSaved (Integer penaltiesSaved) {
 			this.penaltiesSaved = penaltiesSaved;
 			return this;
 		}
 
-		public Builder penaltiesMissed (int penaltiesMissed) {
+		public Builder penaltiesMissed (Integer penaltiesMissed) {
 			this.penaltiesMissed = penaltiesMissed;
 			return this;
 		}
 
-		public Builder yellowCards (int yellowCards) {
+		public Builder yellowCards (Integer yellowCards) {
 			this.yellowCards = yellowCards;
 			return this;
 		}
 
-		public Builder redCards (int redCards) {
+		public Builder redCards (Integer redCards) {
 			this.redCards = redCards;
 			return this;
 		}
 
-		public Builder saves (int saves) {
+		public Builder saves (Integer saves) {
 			this.saves = saves;
 			return this;
 		}
 
-		public Builder bonus (int bonus) {
+		public Builder bonus (Integer bonus) {
 			this.bonus = bonus;
 			return this;
 		}
 
-		public Builder bps (int bps) {
+		public Builder bps (Integer bps) {
 			this.bps = bps;
 			return this;
 		}
 
-		public Builder influence (float influence) {
+		public Builder influence (Float influence) {
 			this.influence = influence;
 			return this;
 		}
 
-		public Builder creativity (float creativity) {
+		public Builder creativity (Float creativity) {
 			this.creativity = creativity;
 			return this;
 		}
 
-		public Builder threat (float threat) {
+		public Builder threat (Float threat) {
 			this.threat = threat;
 			return this;
 		}
 
-		public Builder ictIndex (float ictIndex) {
+		public Builder ictIndex (Float ictIndex) {
 			this.ictIndex = ictIndex;
 			return this;
 		}
 
-		public Builder starts (float starts) {
+		public Builder starts (Float starts) {
 			this.starts = starts;
 			return this;
 		}
 
-		public Builder expectedGoals (float expectedGoals) {
+		public Builder expectedGoals (Float expectedGoals) {
 			this.expectedGoals = expectedGoals;
 			return this;
 		}
 
-		public Builder expectedAssists (float expectedAssists) {
+		public Builder expectedAssists (Float expectedAssists) {
 			this.expectedAssists = expectedAssists;
 			return this;
 		}
 
-		public Builder expectedGoalInvolvements (float expectedGoalInvolvements) {
+		public Builder expectedGoalInvolvements (Float expectedGoalInvolvements) {
 			this.expectedGoalInvolvements = expectedGoalInvolvements;
 			return this;
 		}
 
-		public Builder expectedGoalsConceded (float expectedGoalsConceded) {
+		public Builder expectedGoalsConceded (Float expectedGoalsConceded) {
 			this.expectedGoalsConceded = expectedGoalsConceded;
 			return this;
 		}
 
-		public Builder totalPoints (float totalPoints) {
+		public Builder totalPoints (Float totalPoints) {
 			this.totalPoints = totalPoints;
 			return this;
 		}
 
-		public Builder inDreamTeam (boolean inDreamTeam) {
+		public Builder inDreamTeam (Boolean inDreamTeam) {
 			this.inDreamTeam = inDreamTeam;
 			return this;
 		}
