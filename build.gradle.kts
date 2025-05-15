@@ -1,14 +1,22 @@
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+
 val mockitoAgent = configurations.create("mockitoAgent")
 
 plugins {
     `java-library`
-    alias(libs.plugins.anotherBootPlugin)
+    alias(libs.plugins.springBootPlugin) apply false
     alias(libs.plugins.openapiGradlePlugin)
     `maven-publish`
     alias(libs.plugins.gradleReleaePlugin)
 }
-
+apply(plugin = "io.spring.dependency-management")
 group = "com.fantasy.football"
+
+the<DependencyManagementExtension>().apply {
+    imports {
+        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    }
+}
 
 java {
     toolchain {
@@ -39,7 +47,7 @@ repositories {
 
 dependencies {
     api("org.springframework.data:spring-data-r2dbc")
-    implementation("com.framework.another.boot:another-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-autoconfigure-processor")
     api(libs.swaggerParser)
     testImplementation("org.springframework.boot:spring-boot-starter-test")

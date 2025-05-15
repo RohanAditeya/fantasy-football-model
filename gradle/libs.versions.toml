@@ -1,13 +1,13 @@
 [versions]
-anotherBootPluginVersion = "2.0.4"
-swaggerParserVersion = "2.1.23"
-openapiGradlePluginVersion = "7.10.0"
-gradleReleasePluginVersion = "3.0.2"
+springBootPluginVersion = "3.4.5"
+swaggerParserVersion = "2.1.27"
+openapiGradlePluginVersion = "7.13.0"
+gradleReleasePluginVersion = "3.1.0"
 
 [libraries]
 swaggerParser = { group = "io.swagger.parser.v3", name = "swagger-parser", version.ref = "swaggerParserVersion" }
 
 [plugins]
-anotherBootPlugin = { id = "com.framework.another.boot", version.ref = "anotherBootPluginVersion" }
+springBootPlugin = { id = "org.springframework.boot", version.ref = "springBootPluginVersion" }
 openapiGradlePlugin = { id = "org.openapi.generator", version.ref = "openapiGradlePluginVersion" }
 gradleReleaePlugin = { id = "net.researchgate.release", version.ref = "gradleReleasePluginVersion" }
